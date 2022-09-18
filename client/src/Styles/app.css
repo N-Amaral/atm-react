@@ -1,0 +1,78 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login Menu */
+
+.loginForm {
+  background-color: aquamarine;
+  width: 20%;
+  height: auto;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.398);
+}
+
+.loginForm label {
+  font-weight: bolder;
+  color: royalblue;
+}
+
+/* Main Menu */
+.main-menu {
+}
+.operations-container {
+  display: flex;
+}
+.operations-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.operations-list > li:nth-of-type(even) {
+  position: relative;
+  left: 100%;
+  bottom: 4%;
+}
+.operations-list > li:nth-of-type(odd) {
+  position: relative;
+  right: 100%;
+  top: 10%;
+}
+.operations-list > li:nth-last-of-type(1) {
+  position: relative;
+  left: 100%;
+}
+.operations-list > li {
+  list-style: none;
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+  margin: 1em;
+  padding: 6px 5px 6px 5px;
+  background-color: red;
+  height: 5rem;
+  border-radius: 15px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.398);
+  cursor: pointer;
+}
+
+.operations-list > li:hover {
+  background-color: rgba(255, 0, 0, 0.492);
+}
+
+/* Operations Menu */
