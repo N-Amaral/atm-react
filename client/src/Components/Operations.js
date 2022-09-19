@@ -7,3 +7,5 @@ const Operation = () => {
     </div>
   );
 };
+
+export default Operation;
