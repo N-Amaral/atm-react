@@ -5,7 +5,8 @@ import Login from "./Components/Login";
 import Menu from "./Components/Menu";
 import Operation from "./Components/Operations";
 import ErrorPage from "./Components/ErrorPage";
-import Keyboard from "./Components/UI";
+import Keyboard from "./Components/Keyboard";
+import Screenkeys from "./Components/ScreenKeys";
 
 const App = () => {
   // const [data, setData] = useState(null);
@@ -27,15 +28,18 @@ const App = () => {
     case "/operation":
       component = <Operation />;
       break;
-    case "/keyboard":
-      component = <Keyboard />;
-      break;
     default:
       component = <ErrorPage />;
       break;
   }
 
-  return <div className="App">{component}</div>;
+  return (
+    <div className="App">
+      <Screenkeys />
+      <div className="main-menu">{component}</div>
+      <Keyboard />
+    </div>
+  );
 };
 
 export default App;

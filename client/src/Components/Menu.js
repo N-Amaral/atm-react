@@ -4,14 +4,19 @@ const Operation = (props) => {
   return (
     <>
       <li className="operation-item" id={`op${props.elementId}`}>
-        <a href="/">{props.name}</a>
+        <div className="number-box">
+          <span>{props.elementId + 1}</span>
+        </div>
+        <div className="operation-box">
+          <a href="/">{props.name}</a>
+        </div>
       </li>
     </>
   );
 };
 
 const Menu = () => {
-  const operations = ["Check Account Balance", "Deposits", "Withdrawls", "Payments", "Transfers", "Operation History", "Exit"];
+  const operations = ["Withdrawls", "Consults", "Transfers & Direct Debit", "Payments", "Deposits", "Exit"];
 
   useEffect(() => {
     const items = document.querySelectorAll(".operation-item");
@@ -22,14 +27,12 @@ const Menu = () => {
   }, []);
 
   return (
-    <div className="main-menu">
-      <div className="operations-container">
-        <ul className="operations-list">
-          {operations.map((operation, i) => {
-            return <Operation name={operation} key={i} elementId={i} />;
-          })}
-        </ul>
-      </div>
+    <div className="operations-container">
+      <ul className="operations-list">
+        {operations.map((operation, i) => {
+          return <Operation name={operation} key={i} elementId={i} />;
+        })}
+      </ul>
     </div>
   );
 };

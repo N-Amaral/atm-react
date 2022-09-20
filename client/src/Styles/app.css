@@ -14,7 +14,7 @@ html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: gray;
+  background-color: grey;
 }
 
 /* Login Menu */
@@ -35,52 +35,93 @@ html {
 
 /* Main Menu */
 .main-menu {
-  background-color: blue;
-  height: 80vh;
-  width: auto;
-  display: flex;
-  padding: 5rem;
-  border-radius: 20px;
-  border-color: black;
-  border-width: 1rem;
-  border-style: solid;
+  background-color: royalblue;
+  height: 50%;
+  width: 60%;
+  display: block;
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1rem solid black;
+  position: absolute;
+  top: 1%;
 }
+
+/* Operations Menu */
 .operations-container {
-  display: flex;
+  width: 100%;
+  height: auto;
 }
 
 .operations-list {
+  align-items: center;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 50em;
+  column-gap: 20%;
+  padding: 0;
+  margin: 0;
 }
 
 .operations-list > li {
   list-style: none;
-  text-align: center;
-  padding: 6px 5px 6px 5px;
-  background-color: yellow;
-  height: 5rem;
+  background-color: black;
+  height: 6rem;
   border-radius: 15px;
   border: 3px outset rgba(0, 0, 0, 0.715);
   box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.398);
   cursor: pointer;
+  width: 25rem;
+  display: flex;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
-.operations-list > li > a {
-  font-size: 2rem;
-  font-weight: 700;
-  text-decoration: none;
-  color: black;
+.operations-list > li:nth-of-type(even) {
+  flex-direction: row-reverse;
 }
 .operations-list > li:hover {
-  background-color: rgba(255, 255, 0, 0.791);
+  background-color: rgba(65, 105, 225, 0.632);
 }
+
+.operations-list > li div.number-box {
+  width: 4rem;
+  height: 4rem;
+  background-color: white;
+  border: 3px royalblue solid;
+  display: flex;
+  align-self: center;
+  margin: 1rem;
+  border-radius: 15px;
+  justify-content: center;
+}
+
+.operations-list > li div.number-box span {
+  font-size: 3rem;
+  font-weight: bold;
+  align-self: center;
+}
+
+.operations-list > li div.operation-box {
+  align-self: center;
+}
+
+.operations-list > li div.operation-box a {
+  font-size: 28px;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+}
+
 /* Keyboard/Keypad */
+
+div.wrapper-keyboard {
+  position: fixed;
+  top: 50%;
+  margin-top: 1rem;
+}
 
 div.keyboard {
   display: flex;
   background-color: grey;
+  position: relative;
 }
 
 div.numbers {
@@ -89,11 +130,11 @@ div.numbers {
 }
 
 div.numbers button.keypad-btn {
-  width: 100px;
-  height: 100px;
+  width: 5rem;
+  height: 5rem;
   border-radius: 15px;
-  border: 1px solid black;
-  font-size: 3em;
+  border: 2px outset black;
+  font-size: 3rem;
   font-weight: bold;
   margin: 0.5rem;
   background-color: white;
@@ -101,6 +142,7 @@ div.numbers button.keypad-btn {
 
 div.numbers button.keypad-btn:hover {
   background-color: rgba(255, 255, 255, 0.854);
+  border: inset;
 }
 
 div.actions {
@@ -108,11 +150,11 @@ div.actions {
 }
 
 div.actions div.sidepad-btn {
-  width: 300px;
-  height: 100px;
+  width: 15rem;
+  height: 5rem;
   border-radius: 10px;
-  border: 1px solid black;
-  font-size: 2em;
+  border: 2px outset black;
+  font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
   margin: 0.5rem 0.5rem 0.5rem 4rem;
@@ -122,6 +164,7 @@ div.actions div.sidepad-btn {
 
 div.actions div.sidepad-btn:hover {
   background-color: rgba(255, 255, 255, 0.854);
+  border: inset;
 }
 
 div.actions div.sidepad-btn span.sidepad-content {
@@ -129,15 +172,18 @@ div.actions div.sidepad-btn span.sidepad-content {
   width: 100%;
   margin-top: 3px;
   margin-bottom: 3px;
+  cursor: pointer;
 }
 div.actions div.sidepad-btn span.sidepad-symbol {
   background-color: red;
-  font-size: 4rem;
-  display: block;
+  font-size: 3rem;
+  display: flex;
   width: 40%;
-  height: 90px;
+  height: 4.2rem;
   border-radius: 10px;
+  border: 2px inset black;
   margin-right: 10px;
+  justify-content: center;
 }
 
 div.actions div.sidepad-btn span.sidepad-symbol {
@@ -163,4 +209,48 @@ div.actions div.sidepad-btn:nth-of-type(4) span.sidepad-symbol {
 div.actions div.sidepad-btn:nth-of-type(4):hover span.sidepad-symbol {
   background-color: rgba(0, 128, 0, 0.875);
 }
+
+/* SideScren Keys */
+
+.key-wrapper,
+.key-wrapper-left {
+  position: fixed;
+  right: 0;
+  left: 11%;
+  top: 4%;
+  margin: 1rem;
+  height: auto;
+  width: fit-content;
+}
+
+.key-wrapper-left {
+  right: 0%;
+  left: 79%;
+  top: 4%;
+}
+
+.key-wrapper .screen-key,
+.key-wrapper-left .screen-key-left {
+  width: 8rem;
+  height: 6rem;
+  margin: 1rem;
+  background-color: gray;
+  border: 3px outset black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.key-wrapper .screen-key:hover,
+.key-wrapper-left .screen-key-left:hover {
+  background-color: rgba(128, 128, 128, 0.872);
+  border: 3px inset black;
+}
+
+/* .key-wrapper .screen-key .screenkey-symbol {
+  font-size: 4rem;
+  display: flex;
+  justify-content: end;
+  padding-right: 1rem;
+} */
+
 /* Operations Menu */
