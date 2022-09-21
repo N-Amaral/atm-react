@@ -12,9 +12,20 @@ html {
 .App {
   display: flex;
   justify-content: center;
+  align-content: center;
+  background-color: black;
+  height: 100vh;
+}
+
+.App div.app-wrapper {
+  display: flex;
+  justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100rem;
   background-color: grey;
+  border-radius: 15px;
+  border: 5px outset white;
 }
 
 /* Login Menu */
@@ -36,8 +47,8 @@ html {
 /* Main Menu */
 .main-menu {
   background-color: royalblue;
-  height: 50%;
-  width: 60%;
+  height: 35rem;
+  width: 70rem;
   display: block;
   padding: 2rem;
   border-radius: 15px;
@@ -108,19 +119,19 @@ html {
   font-weight: 700;
   text-decoration: none;
   color: white;
+  text-transform: capitalize;
 }
 
 /* Keyboard/Keypad */
 
 div.wrapper-keyboard {
   position: fixed;
-  top: 50%;
-  margin-top: 1rem;
+  top: 35rem;
+  margin-top: 0.6rem;
 }
 
 div.keyboard {
   display: flex;
-  background-color: grey;
   position: relative;
 }
 
@@ -136,7 +147,7 @@ div.numbers button.keypad-btn {
   border: 2px outset black;
   font-size: 3rem;
   font-weight: bold;
-  margin: 0.5rem;
+  margin: 0.3rem;
   background-color: white;
 }
 
@@ -157,7 +168,7 @@ div.actions div.sidepad-btn {
   font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
-  margin: 0.5rem 0.5rem 0.5rem 4rem;
+  margin: 0.3rem 0.3rem 0.3rem 1rem;
   background-color: white;
   text-align: center;
 }
@@ -229,12 +240,24 @@ div.actions div.sidepad-btn:nth-of-type(4):hover span.sidepad-symbol {
   top: 4%;
 }
 
+@media screen and (min-width: 2000px) {
+  .key-wrapper {
+    left: 20%;
+    top: 3%;
+  }
+
+  .key-wrapper-left {
+    left: 73%;
+    top: 3%;
+  }
+}
+
 .key-wrapper .screen-key,
 .key-wrapper-left .screen-key-left {
   width: 8rem;
   height: 6rem;
   margin: 1rem;
-  background-color: gray;
+  background-color: white;
   border: 3px outset black;
   border-radius: 10px;
   cursor: pointer;
@@ -242,7 +265,7 @@ div.actions div.sidepad-btn:nth-of-type(4):hover span.sidepad-symbol {
 
 .key-wrapper .screen-key:hover,
 .key-wrapper-left .screen-key-left:hover {
-  background-color: rgba(128, 128, 128, 0.872);
+  background-color: rgba(255, 255, 255, 0.87);
   border: 3px inset black;
 }
 
@@ -254,3 +277,17 @@ div.actions div.sidepad-btn:nth-of-type(4):hover span.sidepad-symbol {
 } */
 
 /* Operations Menu */
+
+/* Operations Request */
+div.request-container .inner-container {
+  margin: 1rem;
+}
+
+div.request-container .input-style {
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  border: 3px solid black;
+}

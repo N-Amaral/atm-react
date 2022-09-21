@@ -1,12 +1,16 @@
-import { React } from "react";
+import { React, useState } from "react";
 import "./Styles/app.css";
 // import Header from "./Components/Header";
 import Login from "./Components/Login";
 import Menu from "./Components/Menu";
-import Operation from "./Components/Operations";
+import OperationMenu from "./Components/OperationMenu";
 import ErrorPage from "./Components/ErrorPage";
 import Keyboard from "./Components/Keyboard";
 import Screenkeys from "./Components/ScreenKeys";
+import OperationRequest from "./Components/OperationRequest";
+// state
+
+import { operationList } from "./state";
 
 const App = () => {
   // const [data, setData] = useState(null);
@@ -17,16 +21,21 @@ const App = () => {
   //     .then((data) => setData(data.message));
   // }, []);
 
+  const [data, setData] = useState(operationList);
+
   let component = undefined;
   switch (window.location.pathname) {
     case "/" || "/login":
       component = <Login />;
       break;
     case "/menu":
-      component = <Menu />;
+      component = <Menu dataSet={data} />;
       break;
     case "/operation":
-      component = <Operation />;
+      component = <OperationMenu dataSet={data} />;
+      break;
+    case "/operationrequest":
+      component = <OperationRequest />;
       break;
     default:
       component = <ErrorPage />;
@@ -35,9 +44,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <Screenkeys />
-      <div className="main-menu">{component}</div>
-      <Keyboard />
+      <div className="app-wrapper">
+        <Screenkeys />
+        <div className="main-menu">{component}</div>
+        <Keyboard />
+      </div>
     </div>
   );
 };

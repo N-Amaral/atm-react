@@ -36,9 +36,17 @@ const Keyboard = () => {
 
   useEffect(() => {
     const buttons = document.querySelectorAll(".keypad-btn");
+    const sideButtons = document.querySelectorAll(".sidepad-btn");
+
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         console.log(button.innerHTML);
+      });
+    });
+
+    Array.from(sideButtons).forEach((button) => {
+      button.addEventListener("click", () => {
+        console.log(button.innerText);
       });
     });
   }, []);

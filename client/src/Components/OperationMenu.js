@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 
-const Operation = (props) => {
+const OnScreen = (props) => {
   return (
     <>
       <li className="operation-item" id={`op${props.elementId}`}>
@@ -8,19 +8,21 @@ const Operation = (props) => {
           <span>{props.elementId + 1}</span>
         </div>
         <div className="operation-box">
-          <a href={`${props.name}`}>{props.name}</a>
+          <a href={`${props.name}`} style={{ textTransform: "uppercase" }}>
+            {props.name}
+          </a>
         </div>
       </li>
     </>
   );
 };
 
-const Menu = (props) => {
-  const dataSet = Object.entries(props.dataSet["PT"]);
+const OperationMenu = (props) => {
+  const dataSet = Object.entries(props.dataSet["PT"])[0][1];
   const operations = [];
 
   dataSet.map((data) => {
-    operations.push(data[0]);
+    operations.push(data);
     return operations;
   });
 
@@ -36,11 +38,10 @@ const Menu = (props) => {
     <div className="operations-container">
       <ul className="operations-list">
         {operations.map((operation, i) => {
-          return <Operation name={operation} key={i} elementId={i} />;
+          return <OnScreen name={operation} key={i} elementId={i} />;
         })}
       </ul>
     </div>
   );
 };
-
-export default Menu;
+export default OperationMenu;

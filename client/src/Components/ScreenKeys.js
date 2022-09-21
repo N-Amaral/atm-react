@@ -1,12 +1,12 @@
-import React from "react";
+import { React, useEffect } from "react";
 
 const RightKeys = () => {
-  const numbers = [1, 2, 3];
+  const numbers = [1, 2, 3, 4];
   return (
     <div className="key-wrapper">
-      {numbers.map((number) => {
+      {numbers.map((number, i) => {
         return (
-          <div className="screen-key">
+          <div className="screen-key scKey" key={i}>
             <span className="screenkey-symbol"></span>
           </div>
         );
@@ -16,12 +16,12 @@ const RightKeys = () => {
 };
 
 const LeftKeys = () => {
-  const numbers = [1, 2, 3];
+  const numbers = [5, 6, 7, 8];
   return (
     <div className="key-wrapper-left">
-      {numbers.map((number) => {
+      {numbers.map((number, i) => {
         return (
-          <div className="screen-key-left">
+          <div className="screen-key-left scKey" key={i}>
             <span className="screenkey-symbol-left"></span>
           </div>
         );
@@ -31,6 +31,13 @@ const LeftKeys = () => {
 };
 
 const Screenkeys = () => {
+  useEffect(() => {
+    const sideBtns = document.querySelectorAll(".scKey");
+    Array.from(sideBtns).forEach((btn, i) => {
+      btn.addEventListener("click", () => console.log(i));
+    });
+  }, []);
+
   return (
     <div className="screen-wrapper">
       <RightKeys />
