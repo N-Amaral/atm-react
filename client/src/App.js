@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./Styles/app.css";
 // import Header from "./Components/Header";
 import Login from "./Components/Login";
@@ -13,6 +13,25 @@ import OperationRequest from "./Components/OperationRequest";
 import { operationList } from "./state";
 
 const App = () => {
+  useEffect(() => {
+    const buttons = document.querySelectorAll(".keypad-btn");
+    const sideButtons = document.querySelectorAll(".sidepad-btn");
+    const input = document.querySelectorAll(".upper-input");
+
+    Array.from(buttons).forEach((button) => {
+      button.addEventListener("click", () => {
+        input[0].innerHTML = button.innerHTML;
+        console.log(input[0]);
+      });
+    });
+
+    Array.from(sideButtons).forEach((button) => {
+      button.addEventListener("click", () => {
+        console.log(button.innerText);
+      });
+    });
+  }, []);
+
   // const [data, setData] = useState(null);
 
   // useEffect(() => {

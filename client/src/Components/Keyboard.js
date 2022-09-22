@@ -34,23 +34,6 @@ const Keyboard = () => {
   const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "00"];
   const sidePad = ["anular cancel", "corrigir clear", " ", "confirmar enter"];
 
-  useEffect(() => {
-    const buttons = document.querySelectorAll(".keypad-btn");
-    const sideButtons = document.querySelectorAll(".sidepad-btn");
-
-    Array.from(buttons).forEach((button) => {
-      button.addEventListener("click", () => {
-        console.log(button.innerHTML);
-      });
-    });
-
-    Array.from(sideButtons).forEach((button) => {
-      button.addEventListener("click", () => {
-        console.log(button.innerText);
-      });
-    });
-  }, []);
-
   return (
     <div className="wrapper-keyboard">
       <div className="keyboard">
