@@ -1,0 +1,168 @@
+/* Login Menu */
+
+.loginForm {
+  background-color: blue;
+  width: 20%;
+  height: auto;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.398);
+}
+
+.loginForm label {
+  font-weight: bolder;
+  color: royalblue;
+}
+
+/* Main Menu */
+.main-menu {
+  background-color: royalblue;
+  height: 35rem;
+  width: 70rem;
+  display: block;
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1rem solid black;
+  position: absolute;
+  top: 1%;
+}
+
+/* Operations Menu */
+.operations-container {
+  width: 100%;
+  height: auto;
+}
+
+.operations-list {
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20%;
+  padding: 0;
+  margin: 0;
+}
+
+.operations-list > li {
+  list-style: none;
+  background-color: black;
+  height: 6rem;
+  border-radius: 15px;
+  border: 3px outset rgba(0, 0, 0, 0.715);
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.398);
+  cursor: pointer;
+  width: 25rem;
+  display: flex;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+.operations-list > li:nth-of-type(even) {
+  flex-direction: row-reverse;
+}
+.operations-list > li:hover {
+  background-color: rgba(65, 105, 225, 0.632);
+}
+
+.operations-list > li div.number-box {
+  width: 4rem;
+  height: 4rem;
+  background-color: white;
+  border: 3px royalblue solid;
+  display: flex;
+  align-self: center;
+  margin: 1rem;
+  border-radius: 15px;
+  justify-content: center;
+}
+
+.operations-list > li div.number-box span {
+  font-size: 3rem;
+  font-weight: bold;
+  align-self: center;
+}
+
+.operations-list > li div.operation-box {
+  align-self: center;
+}
+
+.operations-list > li div.operation-box a {
+  font-size: 28px;
+  font-weight: 700;
+  text-decoration: none;
+  color: white;
+  text-transform: capitalize;
+}
+
+/* Operations Menu */
+
+/* Operations Request */
+div.title-container {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+div.title-container > h1 {
+  font-size: 3rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+div.request-container .lower-request {
+  margin-top: 1rem;
+}
+
+div.upper-request span > p,
+div.lower-request div > h3 {
+  border-bottom: 2px solid rgb(5, 164, 164);
+}
+div.request-container {
+  background-color: black;
+  color: white;
+  padding: 1rem 3rem 1rem 3rem;
+  border-radius: 15px;
+  height: 20rem;
+}
+div.request-container .upper-request .inner-container {
+  margin: 2px;
+}
+
+div.request-container .upper-request .inner-container:nth-of-type(4n) {
+  margin-right: 30px;
+}
+
+div.request-container .lower-request .inner-container {
+  margin: 2px;
+}
+
+div.request-container .lower-request .inner-container:nth-of-type(3n + 2) {
+  margin-right: 30px;
+}
+
+div.request-container .upper-request .input-style {
+  width: 2rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+div.request-container .lower-request .input-style {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+div.request-container .lower-request .inner-container > span {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.warning-container > h5 {
+  text-align: end;
+  color: white;
+  margin: 0.5rem;
+  padding-right: 4rem;
+}

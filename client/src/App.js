@@ -1,37 +1,20 @@
 import { React, useState, useEffect } from "react";
-import "./Styles/app.css";
+import "./styles/app.css";
 // import Header from "./Components/Header";
-import Login from "./Components/Login";
-import Menu from "./Components/Menu";
-import OperationMenu from "./Components/OperationMenu";
-import ErrorPage from "./Components/ErrorPage";
-import Keyboard from "./Components/Keyboard";
-import Screenkeys from "./Components/ScreenKeys";
-import OperationRequest from "./Components/OperationRequest";
+import Login from "./components/Login";
+import Menu from "./components/Menu";
+import OperationMenu from "./components/OperationMenu";
+import ErrorPage from "./components/ErrorPage";
+import Keyboard from "./components/Keyboard";
+import Screenkeys from "./components/ScreenKeys";
+import OperationRequest from "./components/OperationRequest";
+import OperationConfirmation from "./components/OperationConfirm";
+
 // state
 
 import { operationList } from "./state";
 
 const App = () => {
-  useEffect(() => {
-    const buttons = document.querySelectorAll(".keypad-btn");
-    const sideButtons = document.querySelectorAll(".sidepad-btn");
-    const input = document.querySelectorAll(".upper-input");
-
-    Array.from(buttons).forEach((button) => {
-      button.addEventListener("click", () => {
-        input[0].innerHTML = button.innerHTML;
-        console.log(input[0]);
-      });
-    });
-
-    Array.from(sideButtons).forEach((button) => {
-      button.addEventListener("click", () => {
-        console.log(button.innerText);
-      });
-    });
-  }, []);
-
   // const [data, setData] = useState(null);
 
   // useEffect(() => {
@@ -55,6 +38,9 @@ const App = () => {
       break;
     case "/operationrequest":
       component = <OperationRequest />;
+      break;
+    case "/operationconfirmation":
+      component = <OperationConfirmation />;
       break;
     default:
       component = <ErrorPage />;

@@ -1,0 +1,153 @@
+/* Keyboard/Keypad */
+
+div.wrapper-keyboard {
+  position: fixed;
+  top: 35rem;
+  margin-top: 0.6rem;
+}
+
+div.keyboard {
+  display: flex;
+  position: relative;
+}
+
+div.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+div.numbers button.keypad-btn {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 15px;
+  border: 2px outset black;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0.3rem;
+  background-color: white;
+}
+
+div.numbers button.keypad-btn:hover {
+  background-color: rgba(255, 255, 255, 0.854);
+  border: inset;
+}
+
+div.actions {
+  display: grid;
+}
+
+div.actions div.sidepad-btn {
+  width: 15rem;
+  height: 5rem;
+  border-radius: 10px;
+  border: 2px outset black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0.3rem 0.3rem 0.3rem 1rem;
+  background-color: white;
+  text-align: center;
+}
+
+div.actions div.sidepad-btn:hover {
+  background-color: rgba(255, 255, 255, 0.854);
+  border: 2px inset black;
+}
+
+div.actions div.sidepad-btn span.sidepad-content {
+  display: flex;
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+div.actions div.sidepad-btn span.sidepad-symbol {
+  background-color: red;
+  font-size: 3rem;
+  display: flex;
+  width: 40%;
+  height: 4.2rem;
+  border-radius: 10px;
+  border: 2px inset black;
+  margin-right: 10px;
+  justify-content: center;
+}
+
+div.actions div.sidepad-btn span.sidepad-symbol {
+  background-color: rgba(255, 0, 0, 0.875);
+}
+
+div.actions div.sidepad-btn:nth-of-type(2) span.sidepad-symbol {
+  background-color: yellow;
+}
+
+div.actions div.sidepad-btn:nth-of-type(2):hover span.sidepad-symbol {
+  background-color: rgba(255, 255, 0, 0.875);
+}
+
+div.actions div.sidepad-btn:nth-of-type(3) span.sidepad-symbol {
+  display: none;
+}
+
+div.actions div.sidepad-btn:nth-of-type(4) span.sidepad-symbol {
+  background-color: green;
+}
+
+div.actions div.sidepad-btn:nth-of-type(4):hover span.sidepad-symbol {
+  background-color: rgba(0, 128, 0, 0.875);
+}
+
+/* SideScren Keys */
+
+.key-wrapper,
+.key-wrapper-left {
+  position: fixed;
+  right: 0;
+  left: 11%;
+  top: 4%;
+  margin: 1rem;
+  height: auto;
+  width: fit-content;
+}
+
+.key-wrapper-left {
+  right: 0%;
+  left: 79%;
+  top: 4%;
+}
+
+@media screen and (min-width: 2000px) {
+  .key-wrapper {
+    left: 20%;
+    top: 3%;
+  }
+
+  .key-wrapper-left {
+    left: 73%;
+    top: 3%;
+  }
+}
+
+.key-wrapper .screen-key,
+.key-wrapper-left .screen-key-left {
+  width: 8rem;
+  height: 6rem;
+  margin: 1rem;
+  background-color: white;
+  border: 3px outset black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.key-wrapper .screen-key:hover,
+.key-wrapper-left .screen-key-left:hover {
+  background-color: rgba(255, 255, 255, 0.87);
+  border: 3px inset black;
+}
+
+/* .key-wrapper .screen-key .screenkey-symbol {
+    font-size: 4rem;
+    display: flex;
+    justify-content: end;
+    padding-right: 1rem;
+  } */
