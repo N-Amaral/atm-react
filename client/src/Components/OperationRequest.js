@@ -1,17 +1,6 @@
 import { React, useEffect, useState } from "react";
 
 const UpperForm = (props) => {
-  function handleChange(event) {
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault();
-    }
-  }
-  function spreadVal(upperVal) {
-    const value = [upperVal];
-    const inputs = document.querySelectorAll(".upper-input");
-    console.log(upperVal);
-  }
-
   let content = [];
   for (let i = 0; i < 21; i++) {
     content.push(
@@ -20,9 +9,8 @@ const UpperForm = (props) => {
           className="input-style upper-input"
           type={"tel"}
           maxLength={1}
-          value={props.upperVal}
-          onChange={handleChange}
-          onClick={spreadVal(props.upperVal)}
+          value={props.upperVal[i] === undefined ? "" : `${props.upperVal[i]}`}
+          readOnly
           required
         ></input>
       </span>
@@ -61,7 +49,10 @@ const LowerForm = () => {
 };
 
 const OperationRequest = (props) => {
-  const [inputVal, setInputVal] = useState([""]);
+  const [inputVal, setInputVal] = useState({
+    upperVal: [],
+    lowerVal: [],
+  });
 
   function handleChange(event) {
     if (!/[0-9]/.test(event.key)) {
@@ -69,35 +60,30 @@ const OperationRequest = (props) => {
     }
   }
 
-  function keyboardType() {
-    const buttons = document.querySelectorAll(".keypad-btn");
-    const input = document.querySelectorAll(".upper-input");
-
-    Array.from(buttons).forEach((button) => {
-      button.addEventListener("click", () => {
-        const newVal = [...inputVal].push(button.innerHTML);
-        setInputVal(inputVal + newVal);
-      });
-    });
-  }
-
-  function sideKeysType() {
-    const sideButtons = document.querySelectorAll(".sidepad-btn");
-    Array.from(sideButtons).forEach((button) => {
-      button.addEventListener("click", () => {
-        console.log(button.innerText);
-      });
-    });
-  }
-
   useEffect(() => {
-    const inputs = document.querySelectorAll(".input-style");
-    Array.from(inputs).forEach((input) => {
-      input.addEventListener("keydown", handleChange);
-    });
+    function keyboardType() {
+      const buttons = document.querySelectorAll(".keypad-btn");
+      const upperVal = inputVal.upperVal;
+
+      Array.from(buttons).forEach((button) => {
+        button.addEventListener("click", () => {
+          const newVal = upperVal.concat(button.innerHTML);
+          setInputVal({ upperVal: newVal });
+        });
+      });
+    }
+
+    function sideKeysType() {
+      const sideButtons = document.querySelectorAll(".sidepad-btn");
+      Array.from(sideButtons).forEach((button) => {
+        button.addEventListener("click", () => {
+          console.log(button.innerText);
+        });
+      });
+    }
     keyboardType();
     sideKeysType();
-  }, [inputVal]);
+  }, [inputVal.upperVal]);
 
   return (
     <>
@@ -113,7 +99,7 @@ const OperationRequest = (props) => {
             </span>
           </div>
           <form>
-            <UpperForm upperVal={inputVal} />
+            <UpperForm upperVal={inputVal.upperVal} />
           </form>
         </div>
         <div className="lower-request">
