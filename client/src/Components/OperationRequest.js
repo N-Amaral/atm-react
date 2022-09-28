@@ -1,6 +1,6 @@
 import { React, useEffect, useRef, useState } from "react";
 
-const UpperForm = (props) => {
+const UpperForm = () => {
   let content = [];
   for (let i = 0; i < 21; i++) {
     content.push(
@@ -9,7 +9,6 @@ const UpperForm = (props) => {
       </span>
     );
   }
-
   return content;
 };
 
@@ -41,13 +40,15 @@ const LowerForm = () => {
   return content;
 };
 
-const OperationRequest = (props) => {
+const OperationRequest = () => {
   const [inputVal, setInputVal] = useState({
     upperVal: [],
     lowerVal: [],
   });
 
-  const testVal = useRef([]);
+  const upperVal = useRef([]);
+  const lowerVal = useRef([]);
+  let switchFlag = useRef(false);
 
   // function handleChange(event) {
   //   if (!/[0-9]/.test(event.key)) {
@@ -64,31 +65,55 @@ const OperationRequest = (props) => {
   //   });
   // }
 
-  function setValue() {
-    const value = testVal.current.flat(1);
-    const inputs = document.querySelectorAll(".upper-input");
-
-    Array.from(inputs).forEach((input, i) => {
-      if (value[i] === undefined) {
-        input.value = "";
-      } else {
-        input.value = value[i];
-      }
-    });
-  }
-
   useEffect(() => {
-    function keyboardType(button) {
-      let btnValue = button.innerText;
-
-      const newVal = inputVal.upperVal.concat(btnValue);
-      testVal.current.push(newVal);
-      console.log(testVal.current.flat(1));
-
-      // setInputVal({ upperVal: newVal });
-      // console.log(inputVal.upperVal);
+    function checkSubmit() {
+      let upperRefVal = upperVal.current;
+      let lowerRefVal = lowerVal.current;
+      if (!switchFlag.current && upperRefVal.length === 22) {
+        setInputVal({
+          upperVal: [...upperRefVal],
+        });
+        switchFlag.current = true;
+      } else {
+        if (lowerRefVal.length === 7) {
+          setInputVal({
+            lowerVal: [...lowerRefVal],
+          });
+        }
+      }
     }
 
+    function keyboardType(button) {
+      let btnValue = button.innerText;
+      if (!switchFlag.current) {
+        upperVal.current.push(btnValue);
+      } else {
+        lowerVal.current.push(btnValue);
+      }
+      checkSubmit();
+    }
+
+    function setValue() {
+      const upperValue = upperVal.current;
+      const lowerValue = lowerVal.current;
+      const inputs = !switchFlag.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
+
+      Array.from(inputs).forEach((input, i) => {
+        if (!switchFlag.current) {
+          if (upperValue[i] === undefined) {
+            input.value = "";
+          } else {
+            input.value = upperValue[i];
+          }
+        } else {
+          if (lowerValue[i] === undefined) {
+            input.value = "";
+          } else {
+            input.value = lowerValue[i];
+          }
+        }
+      });
+    }
     const buttons = document.querySelectorAll(".keypad-btn");
 
     Array.from(buttons).forEach((button) => {
@@ -113,7 +138,7 @@ const OperationRequest = (props) => {
             </span>
           </div>
           <form>
-            <UpperForm upperVal={inputVal.upperVal} />
+            <UpperForm />
           </form>
         </div>
         <div className="lower-request">
