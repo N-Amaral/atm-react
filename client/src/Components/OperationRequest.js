@@ -1,18 +1,11 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 
 const UpperForm = (props) => {
   let content = [];
   for (let i = 0; i < 21; i++) {
     content.push(
       <span className="inner-container" key={i}>
-        <input
-          className="input-style upper-input"
-          type={"tel"}
-          maxLength={1}
-          value={props.upperVal[i] === undefined ? "" : `${props.upperVal[i]}`}
-          readOnly
-          required
-        ></input>
+        <input className="input-style upper-input" type={"tel"} maxLength={1} readOnly required></input>
       </span>
     );
   }
@@ -27,20 +20,20 @@ const LowerForm = () => {
       content.push(
         <span className="inner-container" key={i}>
           <span>.</span>
-          <input className="input-style lower-input" type={"tel"} maxLength={1} required></input>
+          <input className="input-style lower-input" type={"tel"} maxLength={1} readOnly required></input>
         </span>
       );
     } else if (i === 5) {
       content.push(
         <span className="inner-container" key={i}>
           <span>,</span>
-          <input className="input-style lower-input" type={"tel"} maxLength={1} required></input>
+          <input className="input-style lower-input" type={"tel"} maxLength={1} readOnly required></input>
         </span>
       );
     } else {
       content.push(
         <span className="inner-container" key={i}>
-          <input className="input-style lower-input" type={"tel"} maxLength={1} required></input>
+          <input className="input-style lower-input" type={"tel"} maxLength={1} readOnly required></input>
         </span>
       );
     }
@@ -54,36 +47,57 @@ const OperationRequest = (props) => {
     lowerVal: [],
   });
 
-  function handleChange(event) {
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault();
-    }
+  const testVal = useRef([]);
+
+  // function handleChange(event) {
+  //   if (!/[0-9]/.test(event.key)) {
+  //     event.preventDefault();
+  //   }
+  // }
+
+  // function sideKeysType() {
+  //   const sideButtons = document.querySelectorAll(".sidepad-btn");
+  //   Array.from(sideButtons).forEach((button) => {
+  //     button.addEventListener("click", () => {
+  //       console.log(button.innerText);
+  //     });
+  //   });
+  // }
+
+  function setValue() {
+    const value = testVal.current.flat(1);
+    const inputs = document.querySelectorAll(".upper-input");
+
+    Array.from(inputs).forEach((input, i) => {
+      if (value[i] === undefined) {
+        input.value = "";
+      } else {
+        input.value = value[i];
+      }
+    });
   }
 
   useEffect(() => {
-    function keyboardType() {
-      const buttons = document.querySelectorAll(".keypad-btn");
-      const upperVal = inputVal.upperVal;
+    function keyboardType(button) {
+      let btnValue = button.innerText;
 
-      Array.from(buttons).forEach((button) => {
-        button.addEventListener("click", () => {
-          const newVal = upperVal.concat(button.innerHTML);
-          setInputVal({ upperVal: newVal });
-        });
-      });
+      const newVal = inputVal.upperVal.concat(btnValue);
+      testVal.current.push(newVal);
+      console.log(testVal.current.flat(1));
+
+      // setInputVal({ upperVal: newVal });
+      // console.log(inputVal.upperVal);
     }
 
-    function sideKeysType() {
-      const sideButtons = document.querySelectorAll(".sidepad-btn");
-      Array.from(sideButtons).forEach((button) => {
-        button.addEventListener("click", () => {
-          console.log(button.innerText);
-        });
+    const buttons = document.querySelectorAll(".keypad-btn");
+
+    Array.from(buttons).forEach((button) => {
+      button.addEventListener("click", () => {
+        keyboardType(button);
+        setValue();
       });
-    }
-    keyboardType();
-    sideKeysType();
-  }, [inputVal.upperVal]);
+    });
+  }, [inputVal]);
 
   return (
     <>
