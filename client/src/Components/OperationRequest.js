@@ -49,6 +49,7 @@ const OperationRequest = () => {
   const upperVal = useRef([]);
   const lowerVal = useRef([]);
   let switchFlag = useRef(false);
+  let endFlag = useRef(false);
 
   // function handleChange(event) {
   //   if (!/[0-9]/.test(event.key)) {
@@ -69,30 +70,22 @@ const OperationRequest = () => {
     function checkSubmit() {
       let upperRefVal = upperVal.current;
       let lowerRefVal = lowerVal.current;
+
       if (!switchFlag.current && upperRefVal.length === 22) {
-        setInputVal({
-          upperVal: [...upperRefVal],
-        });
         switchFlag.current = true;
-      } else {
-        if (lowerRefVal.length === 7) {
-          setInputVal({
-            lowerVal: [...lowerRefVal],
-          });
-        }
+      }
+      if (switchFlag.current && lowerRefVal.length === 6) {
+        endFlag.current = true;
       }
     }
 
-    function keyboardType(button) {
-      let btnValue = button.innerText;
-      if (!switchFlag.current) {
-        upperVal.current.push(btnValue);
+    function evalSubmit(value, index, input) {
+      if (value[index] === undefined) {
+        input.value = "";
       } else {
-        lowerVal.current.push(btnValue);
+        input.value = value[index];
       }
-      checkSubmit();
     }
-
     function setValue() {
       const upperValue = upperVal.current;
       const lowerValue = lowerVal.current;
@@ -100,26 +93,35 @@ const OperationRequest = () => {
 
       Array.from(inputs).forEach((input, i) => {
         if (!switchFlag.current) {
-          if (upperValue[i] === undefined) {
-            input.value = "";
-          } else {
-            input.value = upperValue[i];
-          }
+          evalSubmit(upperValue, i, input);
         } else {
-          if (lowerValue[i] === undefined) {
-            input.value = "";
-          } else {
-            input.value = lowerValue[i];
-          }
+          evalSubmit(lowerValue, i, input);
         }
       });
     }
+
+    function keyboardType(button) {
+      let btnValue = button.innerText;
+      const value = !switchFlag.current ? upperVal.current : lowerVal.current;
+
+      value.push(btnValue);
+    }
+
     const buttons = document.querySelectorAll(".keypad-btn");
 
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
-        keyboardType(button);
-        setValue();
+        if (!endFlag.current) {
+          checkSubmit();
+          keyboardType(button);
+          setValue();
+        } else {
+          setInputVal({
+            upperVal: upperVal,
+            lowerVal: lowerVal,
+          });
+        }
+        console.log(inputVal);
       });
     });
   }, [inputVal]);
