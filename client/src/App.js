@@ -9,6 +9,7 @@ import Keyboard from "./components/Keyboard";
 import Screenkeys from "./components/ScreenKeys";
 import OperationRequest from "./components/OperationRequest";
 import OperationConfirmation from "./components/OperationConfirm";
+import PaymentRequest from "./components/PaymentRequest";
 
 // state
 
@@ -42,6 +43,10 @@ const App = () => {
     case "/operationconfirmation":
       component = <OperationConfirmation />;
       break;
+    case "/paymentrequest":
+      component = <PaymentRequest />;
+      break;
+
     default:
       component = <ErrorPage />;
       break;

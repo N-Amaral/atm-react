@@ -99,6 +99,7 @@ div.title-container {
   text-align: center;
   margin-bottom: 4rem;
 }
+
 div.title-container > h1 {
   font-size: 3rem;
   color: white;
@@ -120,11 +121,16 @@ div.request-container {
   border-radius: 15px;
   height: 20rem;
 }
-div.request-container .upper-request .inner-container {
+div.request-container .upper-request .inner-container,
+div.request-container .middle-request .inner-container {
   margin: 2px;
 }
 
 div.request-container .upper-request .inner-container:nth-of-type(4n) {
+  margin-right: 30px;
+}
+
+div.request-container .middle-request .inner-container:nth-of-type(3n) {
   margin-right: 30px;
 }
 
@@ -136,7 +142,8 @@ div.request-container .lower-request .inner-container:nth-of-type(3n + 2) {
   margin-right: 30px;
 }
 
-div.request-container .upper-request .input-style {
+div.request-container .upper-request .input-style,
+div.request-container .middle-request .input-style {
   width: 2rem;
   height: 3rem;
   text-align: center;
@@ -155,11 +162,21 @@ div.request-container .lower-request .input-style {
 }
 
 div.request-container .lower-request .inner-container > span {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-right: 10px;
 }
+div.request-container .lower-request > div > span:last-of-type {
+  display: flex;
+  float: inline-end;
+  margin-right: 22rem;
+}
 
+div.request-container .lower-request > div > span:last-of-type > h3 {
+  font-size: 3rem;
+  display: inline-block;
+  padding-top: 0.5rem;
+}
 .warning-container > h5 {
   text-align: end;
   color: white;

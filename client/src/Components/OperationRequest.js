@@ -57,28 +57,20 @@ const OperationRequest = () => {
   //   }
   // }
 
-  // function sideKeysType() {
-  //   const sideButtons = document.querySelectorAll(".sidepad-btn");
-  //   Array.from(sideButtons).forEach((button) => {
-  //     button.addEventListener("click", () => {
-  //       console.log(button.innerText);
-  //     });
-  //   });
-  // }
-
   useEffect(() => {
+    // checks length of refs to determine if input is fully set for submission
     function checkSubmit() {
       let upperRefVal = upperVal.current;
       let lowerRefVal = lowerVal.current;
 
-      if (!switchFlag.current && upperRefVal.length === 22) {
+      if (!switchFlag.current && upperRefVal.length === 21) {
         switchFlag.current = true;
       }
-      if (switchFlag.current && lowerRefVal.length === 6) {
+      if (switchFlag.current && lowerRefVal.length === 7) {
         endFlag.current = true;
       }
     }
-
+    // reflects the actual submission of input to the input value itself
     function evalSubmit(value, index, input) {
       if (value[index] === undefined) {
         input.value = "";
@@ -86,20 +78,23 @@ const OperationRequest = () => {
         input.value = value[index];
       }
     }
+
+    // takes above function and submits according to limits. Switches between upper inputs and lower
     function setValue() {
       const upperValue = upperVal.current;
       const lowerValue = lowerVal.current;
       const inputs = !switchFlag.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
 
       Array.from(inputs).forEach((input, i) => {
-        if (!switchFlag.current) {
+        if (!endFlag.current && !switchFlag.current) {
           evalSubmit(upperValue, i, input);
-        } else {
+        } else if (!endFlag.current && switchFlag.current) {
           evalSubmit(lowerValue, i, input);
         }
       });
     }
 
+    // takes the values selected on the the on-screen keyboard and pushes it to the right refValue
     function keyboardType(button) {
       let btnValue = button.innerText;
       const value = !switchFlag.current ? upperVal.current : lowerVal.current;
@@ -108,7 +103,20 @@ const OperationRequest = () => {
     }
 
     const buttons = document.querySelectorAll(".keypad-btn");
+    const enterBtn = document.querySelectorAll(".sidepad-btn");
+    // event listener for each onscreen button.
 
+    //confirms input from ref to state
+    enterBtn[3].addEventListener("click", () => {
+      checkSubmit();
+      if (endFlag.current) {
+        setInputVal({
+          upperVal: upperVal,
+          lowerVal: lowerVal,
+        });
+        console.log(inputVal);
+      }
+    });
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
@@ -121,7 +129,6 @@ const OperationRequest = () => {
             lowerVal: lowerVal,
           });
         }
-        console.log(inputVal);
       });
     });
   }, [inputVal]);
@@ -133,12 +140,10 @@ const OperationRequest = () => {
       </div>
       <div className="request-container">
         <div className="upper-request">
-          <div>
-            <h3>Introduza o N.I.B do Destinatário</h3>
-            <span>
-              <p>(Número de Identificação Bancária)</p>
-            </span>
-          </div>
+          <h3>Introduza o N.I.B do Destinatário</h3>
+          <span>
+            <p>(Número de Identificação Bancária)</p>
+          </span>
           <form>
             <UpperForm />
           </form>
