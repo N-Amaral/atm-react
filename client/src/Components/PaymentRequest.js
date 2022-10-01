@@ -58,22 +58,28 @@ const PaymentRequest = () => {
       <div className="title-container">
         <h1>pagamento de serviços/compras</h1>
       </div>
-      <div className="request-container">
-        <h2>elementos da factura</h2>
+      <div className="request-container payment">
+        <h3>elementos da factura</h3>
         <div className="upper-request">
           <h3>entidade</h3>
-          <UpperForm />
+          <div>
+            <UpperForm />
+          </div>
         </div>
         <div className="middle-request">
           <h3>referência</h3>
-          <MiddleForm />
+          <div>
+            <MiddleForm />
+          </div>
         </div>
         <div className="lower-request">
           <h3>montante</h3>
-          <LowerForm />
-          <span>
-            <h3>Euro</h3>
-          </span>
+          <div>
+            <LowerForm />
+            <span>
+              <h3>Euro</h3>
+            </span>
+          </div>
         </div>
       </div>
     </>
