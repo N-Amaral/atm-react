@@ -11,6 +11,7 @@ import OperationTransfer from "./components/OperationTransfer";
 import OperationConfirmation from "./components/OperationConfirm";
 import OperationPayment from "./components/OperationPayment";
 import OperationConsults from "./components/OperationConsults";
+import OperationDeposits from "./components/OperationDeposits";
 
 // state
 
@@ -38,7 +39,7 @@ const App = () => {
     case "/levantamentos":
       component = <OperationWithdrawl dataSet={data} />;
       break;
-    case "/transferências":
+    case "/transferencias":
       component = <OperationTransfer />;
       break;
     case "/operationconfirmation":
@@ -49,6 +50,9 @@ const App = () => {
       break;
     case "/consultas":
       component = <OperationConsults dataSet={data} />;
+      break;
+    case "/depositos":
+      component = <OperationDeposits />;
       break;
 
     default:

@@ -86,4 +86,5 @@ const OperationPayment = () => {
   );
 };
 
+export { LowerForm };
 export default OperationPayment;

@@ -10,9 +10,9 @@ export const operationList = {
   PT: {
     levantamentos: ["20 euros", "40 euros", "60 euros", "100 euros", "200 euros", "Outras importâncias", "Outras Operações"],
     consultas: ["Consultas de Saldo", "Consulta de Movimentos de Conta", "Consulta a NIB e IBAN"],
-    transferências: {},
+    transferencias: {},
     pagamentos: {},
-    depósitos: {},
+    depositos: {},
     sair: {},
   },
 };
