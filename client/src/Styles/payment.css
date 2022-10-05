@@ -1,0 +1,69 @@
+/* Payment Request */
+
+div.request-container.payment {
+  position: relative;
+  left: 15%;
+  width: 70%;
+  display: grid;
+  align-content: space-around;
+  justify-content: center;
+}
+div.payment > h3 {
+  text-transform: uppercase;
+  border-bottom: 2px solid rgb(5, 164, 164);
+}
+
+div.payment .upper-request h3,
+div.payment .middle-request h3,
+div.payment .lower-request h3 {
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 1rem 1rem 0 0;
+}
+
+div.payment .upper-request div,
+div.payment .middle-request div,
+div.payment .lower-request div {
+  display: inline;
+}
+
+div.payment .lower-request > div > span:last-of-type {
+  display: inline-flex;
+  margin-right: 0rem;
+}
+
+div.payment .lower-request > div > span:last-of-type > h3 {
+  font-size: 2rem;
+  padding: 0;
+  margin: 15px 0 0 15px;
+}
+
+div.payment .upper-request .inner-container:nth-of-type(4n) {
+  margin: 2px;
+}
+div.payment .middle-request .inner-container {
+  margin: 3px;
+}
+div.payment .middle-request .inner-container:nth-of-type(3n) {
+  margin-right: 10px;
+}
+
+div.payment .middle-request .input-style {
+  width: 2rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 10px;
+}
+div.payment .lower-request .input-style {
+  width: 2rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 10px;
+}
+div.request-container.payment .lower-request .inner-container:nth-of-type(3n + 2) {
+  margin-right: 5px;
+}

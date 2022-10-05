@@ -61,19 +61,19 @@ const PaymentRequest = () => {
       <div className="request-container payment">
         <h3>elementos da factura</h3>
         <div className="upper-request">
-          <h3>entidade</h3>
+          <h3 style={{ "margin-right": "3.5rem" }}>entidade:</h3>
           <div>
             <UpperForm />
           </div>
         </div>
         <div className="middle-request">
-          <h3>referência</h3>
+          <h3>referência:</h3>
           <div>
             <MiddleForm />
           </div>
         </div>
         <div className="lower-request">
-          <h3>montante</h3>
+          <h3 style={{ "margin-right": "2.7rem" }}>montante:</h3>
           <div>
             <LowerForm />
             <span>

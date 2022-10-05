@@ -1,5 +1,7 @@
 @import "./allMenus.css";
 @import "./ui.css";
+@import "./transfer.css";
+@import "./payment.css";
 
 html {
   scroll-behavior: smooth;
