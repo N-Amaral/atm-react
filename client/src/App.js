@@ -2,14 +2,15 @@ import { React, useState, useEffect } from "react";
 import "./styles/app.css";
 // import Header from "./Components/Header";
 import Login from "./components/Login";
-import Menu from "./components/Menu";
-import OperationMenu from "./components/OperationMenu";
+import { Menu } from "./components/Menu";
+import OperationWithdrawl from "./components/OperationWithdrawl";
 import ErrorPage from "./components/ErrorPage";
 import Keyboard from "./components/Keyboard";
 import Screenkeys from "./components/ScreenKeys";
-import OperationRequest from "./components/OperationRequest";
+import OperationTransfer from "./components/OperationTransfer";
 import OperationConfirmation from "./components/OperationConfirm";
-import PaymentRequest from "./components/PaymentRequest";
+import OperationPayment from "./components/OperationPayment";
+import OperationConsults from "./components/OperationConsults";
 
 // state
 
@@ -34,17 +35,20 @@ const App = () => {
     case "/menu":
       component = <Menu dataSet={data} />;
       break;
-    case "/operation":
-      component = <OperationMenu dataSet={data} />;
+    case "/levantamentos":
+      component = <OperationWithdrawl dataSet={data} />;
       break;
-    case "/operationrequest":
-      component = <OperationRequest />;
+    case "/transferências":
+      component = <OperationTransfer />;
       break;
     case "/operationconfirmation":
       component = <OperationConfirmation />;
       break;
-    case "/paymentrequest":
-      component = <PaymentRequest />;
+    case "/pagamentos":
+      component = <OperationPayment />;
+      break;
+    case "/consultas":
+      component = <OperationConsults dataSet={data} />;
       break;
 
     default:

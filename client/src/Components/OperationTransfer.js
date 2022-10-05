@@ -40,7 +40,7 @@ const LowerForm = () => {
   return content;
 };
 
-const OperationRequest = () => {
+const OperationTransfer = () => {
   const [inputVal, setInputVal] = useState({
     upperVal: [],
     lowerVal: [],
@@ -165,4 +165,4 @@ const OperationRequest = () => {
   );
 };
 
-export default OperationRequest;
+export default OperationTransfer;

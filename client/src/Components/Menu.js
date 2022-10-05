@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import React from "react";
 
 const Operation = (props) => {
   return (
@@ -15,6 +15,16 @@ const Operation = (props) => {
   );
 };
 
+const MenuList = (props) => {
+  return (
+    <ul className="operations-list">
+      {props.list.map((operation, i) => {
+        return <Operation name={operation} key={i} elementId={i} />;
+      })}
+    </ul>
+  );
+};
+
 const Menu = (props) => {
   const dataSet = Object.entries(props.dataSet["PT"]);
   const operations = [];
@@ -24,23 +34,11 @@ const Menu = (props) => {
     return operations;
   });
 
-  useEffect(() => {
-    const items = document.querySelectorAll(".operation-item");
-    items.forEach((element) => {
-      const operation = element.id;
-      element.addEventListener("click", () => console.log(operation));
-    });
-  }, []);
-
   return (
     <div className="operations-container">
-      <ul className="operations-list">
-        {operations.map((operation, i) => {
-          return <Operation name={operation} key={i} elementId={i} />;
-        })}
-      </ul>
+      <MenuList list={operations} />
     </div>
   );
 };
 
-export default Menu;
+export { MenuList, Menu };

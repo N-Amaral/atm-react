@@ -17,7 +17,7 @@ const OnScreen = (props) => {
   );
 };
 
-const OperationMenu = (props) => {
+const OperationWithdrawl = (props) => {
   const dataSet = Object.entries(props.dataSet["PT"])[0][1];
   const operations = [];
 
@@ -44,4 +44,4 @@ const OperationMenu = (props) => {
     </div>
   );
 };
-export default OperationMenu;
+export default OperationWithdrawl;

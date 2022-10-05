@@ -52,7 +52,7 @@ const LowerForm = () => {
   return content;
 };
 
-const PaymentRequest = () => {
+const OperationPayment = () => {
   return (
     <>
       <div className="title-container">
@@ -86,4 +86,4 @@ const PaymentRequest = () => {
   );
 };
 
-export default PaymentRequest;
+export default OperationPayment;
