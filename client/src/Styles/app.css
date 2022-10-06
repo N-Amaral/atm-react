@@ -2,6 +2,7 @@
 @import "./ui.css";
 @import "./transfer.css";
 @import "./payment.css";
+@import "./deposit.css";
 
 html {
   scroll-behavior: smooth;

@@ -1,0 +1,19 @@
+div.request-container.deposit {
+}
+
+div.request-container.deposit > .lower-request > h3 {
+  text-transform: uppercase;
+  border-bottom: 2px solid rgb(5, 164, 164);
+  text-align: center;
+  padding-bottom: 0.5rem;
+}
+
+div.request-container.deposit > .lower-request > div {
+  position: relative;
+  float: left;
+  left: 30%;
+}
+
+div.request-container.deposit > .lower-request > div > span {
+  margin: 0 10px 0px 0;
+}

@@ -111,10 +111,9 @@ const OperationTransfer = () => {
       checkSubmit();
       if (endFlag.current) {
         setInputVal({
-          upperVal: upperVal,
-          lowerVal: lowerVal,
+          upperVal: upperVal.current,
+          lowerVal: lowerVal.current,
         });
-        console.log(inputVal);
       }
     });
     Array.from(buttons).forEach((button) => {
@@ -123,11 +122,6 @@ const OperationTransfer = () => {
           checkSubmit();
           keyboardType(button);
           setValue();
-        } else {
-          setInputVal({
-            upperVal: upperVal,
-            lowerVal: lowerVal,
-          });
         }
       });
     });
