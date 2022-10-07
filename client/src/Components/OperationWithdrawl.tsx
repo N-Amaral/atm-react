@@ -1,6 +1,6 @@
-import { React, useEffect } from "react";
+import React, { useEffect } from "react";
 
-const OnScreen = (props) => {
+const OnScreen = (props: { elementId: number; name: string }) => {
   return (
     <>
       <li className="operation-item" id={`op${props.elementId}`}>
@@ -17,17 +17,17 @@ const OnScreen = (props) => {
   );
 };
 
-const OperationWithdrawl = (props) => {
-  const dataSet = Object.entries(props.dataSet["PT"])[0][1];
-  const operations = [];
+const OperationWithdrawl = (props: { dataSet: any[string] }) => {
+  const dataSet: any[string] = Object.entries(props.dataSet["PT"])[0][1];
+  const operations: string[] = [];
 
-  dataSet.map((data) => {
+  dataSet.map((data: string) => {
     operations.push(data);
     return operations;
   });
 
   useEffect(() => {
-    const items = document.querySelectorAll(".operation-item");
+    const items: NodeListOf<Element> = document.querySelectorAll(".operation-item");
     items.forEach((element) => {
       const operation = element.id;
       element.addEventListener("click", () => console.log(operation));

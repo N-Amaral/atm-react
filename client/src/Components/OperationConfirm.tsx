@@ -1,6 +1,6 @@
-import { React } from "react";
+import React from "react";
 
-const OperationConfirmation = (props) => {
+const OperationConfirmation = () => {
   return (
     <div className="confirmation-wrapper">
       <div className="confirmation-info">

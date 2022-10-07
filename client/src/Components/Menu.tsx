@@ -1,6 +1,6 @@
 import React from "react";
 
-const Operation = (props) => {
+const Operation = (props: { name: string; elementId: number }) => {
   return (
     <>
       <li className="operation-item" id={`op${props.elementId}`}>
@@ -15,7 +15,7 @@ const Operation = (props) => {
   );
 };
 
-const MenuList = (props) => {
+const MenuList = (props: { list: string[] }) => {
   return (
     <ul className="operations-list">
       {props.list.map((operation, i) => {
@@ -25,9 +25,9 @@ const MenuList = (props) => {
   );
 };
 
-const Menu = (props) => {
+const Menu = (props: { dataSet: any[string] }) => {
   const dataSet = Object.entries(props.dataSet["PT"]);
-  const operations = [];
+  const operations: string[] = [];
 
   dataSet.map((data) => {
     operations.push(data[0]);

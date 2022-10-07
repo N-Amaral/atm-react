@@ -1,7 +1,7 @@
-import { React, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const RightKeys = () => {
-  const numbers = [1, 2, 3, 4];
+  const numbers: number[] = [1, 2, 3, 4];
   return (
     <div className="key-wrapper">
       {numbers.map((number, i) => {
@@ -16,7 +16,7 @@ const RightKeys = () => {
 };
 
 const LeftKeys = () => {
-  const numbers = [5, 6, 7, 8];
+  const numbers: number[] = [5, 6, 7, 8];
   return (
     <div className="key-wrapper-left">
       {numbers.map((number, i) => {

@@ -1,6 +1,6 @@
-import { React, useEffect } from "react";
+import React, { useEffect } from "react";
 
-const NumberKeys = (props) => {
+const NumberKeys = (props: { keys: string[] }) => {
   return (
     <>
       {props.keys.map((key, i) => {
@@ -14,7 +14,7 @@ const NumberKeys = (props) => {
   );
 };
 
-const SideKeys = (props) => {
+const SideKeys = (props: { keys: string[] }) => {
   return (
     <>
       {props.keys.map((key, i) => {
@@ -31,8 +31,8 @@ const SideKeys = (props) => {
 };
 
 const Keyboard = () => {
-  const numPad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "00"];
-  const sidePad = ["anular cancel", "corrigir clear", " ", "confirmar enter"];
+  const numPad: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "0", "00"];
+  const sidePad: string[] = ["anular cancel", "corrigir clear", " ", "confirmar enter"];
 
   return (
     <div className="wrapper-keyboard">

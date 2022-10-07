@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { MenuList } from "./Menu";
 
-const OperationConsults = (props) => {
-  const dataSet = Object.entries(props.dataSet["PT"]["consultas"]);
-  const operations = [];
+const OperationConsults = (props: { dataSet: any[any] }) => {
+  const dataSet: any[] = Object.entries(props.dataSet["PT"]["consultas"]);
+  const operations: any[] = [];
 
   dataSet.map((data) => {
     operations.push(data[1]);
