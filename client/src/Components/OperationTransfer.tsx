@@ -161,4 +161,5 @@ const OperationTransfer = () => {
   );
 };
 
+export { UpperForm };
 export default OperationTransfer;

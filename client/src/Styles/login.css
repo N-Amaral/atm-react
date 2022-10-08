@@ -1,0 +1,17 @@
+div.request-container.login > div.upper-request > h3,
+div.request-container.login > div.lower-request > h3 {
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 2px solid rgb(5, 164, 164);
+}
+
+div.request-container.login > div.lower-request > div {
+  display: flex;
+  justify-content: center;
+}
+
+div.request-container.login > div.lower-request .inner-container {
+  margin: 2px;
+  display: inline-block;
+  float: none;
+}

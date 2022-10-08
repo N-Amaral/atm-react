@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import "./styles/app.css";
 // import Header from "./Components/Header";
-import Login from "./components/Login";
+
 import { Menu } from "./components/Menu";
 import OperationWithdrawl from "./components/OperationWithdrawl";
 import ErrorPage from "./components/ErrorPage";
@@ -12,6 +12,7 @@ import OperationConfirmation from "./components/OperationConfirm";
 import OperationPayment from "./components/OperationPayment";
 import OperationConsults from "./components/OperationConsults";
 import OperationDeposits from "./components/OperationDeposits";
+import OperationLogin from "./components/OperationLogin";
 
 // state
 
@@ -31,7 +32,7 @@ const App = () => {
   let component = undefined;
   switch (window.location.pathname) {
     case "/" || "/login":
-      component = <Login />;
+      component = <OperationLogin />;
       break;
     case "/menu":
       component = <Menu dataSet={data} />;
