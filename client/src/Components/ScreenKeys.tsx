@@ -32,9 +32,37 @@ const LeftKeys = () => {
 
 const Screenkeys = () => {
   useEffect(() => {
-    const sideBtns = document.querySelectorAll(".scKey");
+    const sideBtns: NodeListOf<Element> = document.querySelectorAll(".scKey");
+    const menuBtns: any[any] = Array.from(document.querySelectorAll(".operation-item"));
     Array.from(sideBtns).forEach((btn, i) => {
-      btn.addEventListener("click", () => console.log(i));
+      btn.addEventListener("click", () => {
+        switch (i) {
+          case 0:
+            console.log(i, menuBtns[0].textContent);
+            break;
+          case 1:
+            console.log(i, menuBtns[2].textContent);
+            break;
+          case 2:
+            console.log(i, menuBtns[4].textContent);
+            break;
+          case 3:
+            console.log(i, menuBtns[3].textContent);
+            break;
+          case 4:
+            console.log(i, menuBtns[1].textContent);
+            break;
+          case 5:
+            console.log(i, menuBtns[3].textContent);
+            break;
+          case 6:
+            console.log(i, menuBtns[5].textContent);
+            break;
+          case 7:
+            console.log(i, menuBtns[5].textContent);
+            break;
+        }
+      });
     });
   }, []);
 
