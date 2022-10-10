@@ -68,12 +68,15 @@ const OperationPayment = () => {
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
-    function checkSubmit() {
-      const value: number = !switchFlag1.current
-        ? upperVal.current.length
-        : switchFlag1.current && !switchFlag2.current
-        ? middleVal.current.length
-        : lowerVal.current.length;
+    function checkSubmit(
+      upperVal: number[],
+      middleVal: number[],
+      lowerVal: number[],
+      switchFlag1: { current: boolean },
+      switchFlag2: { current: boolean },
+      endFlag: { current: boolean }
+    ) {
+      const value: number = !switchFlag1.current ? upperVal.length : switchFlag1 && !switchFlag2.current ? middleVal.length : lowerVal.length;
 
       if (!switchFlag1.current && value === 5) {
         switchFlag1.current = true;
@@ -94,11 +97,14 @@ const OperationPayment = () => {
       }
     }
 
-    function setValue() {
-      const upperValue: number[] = upperVal.current;
-      const middleValue: number[] = middleVal.current;
-      const lowerValue: number[] = lowerVal.current;
-
+    function setValue(
+      upperVal: number[],
+      middleVal: number[],
+      lowerVal: number[],
+      switchFlag1: { current: boolean },
+      switchFlag2: { current: boolean },
+      endFlag: { current: boolean }
+    ) {
       const inputs: NodeListOf<Element> = !switchFlag1.current
         ? document.querySelectorAll(".upper-input")
         : switchFlag1.current && !switchFlag2.current
@@ -107,11 +113,11 @@ const OperationPayment = () => {
 
       Array.from(inputs).forEach((input: Element, i: number) => {
         if (!switchFlag1.current) {
-          evalSubmit(upperValue, i, input);
+          evalSubmit(upperVal, i, input);
         } else if (switchFlag1.current && !switchFlag2.current) {
-          evalSubmit(middleValue, i, input);
+          evalSubmit(middleVal, i, input);
         } else if (!endFlag.current && switchFlag2.current) {
-          evalSubmit(lowerValue, i, input);
+          evalSubmit(lowerVal, i, input);
         }
       });
     }
@@ -140,7 +146,7 @@ const OperationPayment = () => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
     enterBtn[3].addEventListener("click", () => {
-      checkSubmit();
+      checkSubmit(upperVal.current, middleVal.current, lowerVal.current, switchFlag1, switchFlag2, endFlag);
       if (endFlag.current) {
         setInputVal({
           upperVal: upperVal.current,
@@ -152,9 +158,9 @@ const OperationPayment = () => {
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
-          checkSubmit();
+          checkSubmit(upperVal.current, middleVal.current, lowerVal.current, switchFlag1, switchFlag2, endFlag);
           keyboardType(button);
-          setValue();
+          setValue(upperVal.current, middleVal.current, lowerVal.current, switchFlag1, switchFlag2, endFlag);
         }
       });
     });
