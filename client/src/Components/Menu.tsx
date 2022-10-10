@@ -3,7 +3,7 @@ import React from "react";
 const Operation = (props: { name: string; elementId: number }) => {
   return (
     <>
-      <li className="operation-item" id={`op${props.elementId}`}>
+      <li className="operation-item" id={`${props.elementId}`}>
         <div className="number-box">
           <span>{props.elementId + 1}</span>
         </div>

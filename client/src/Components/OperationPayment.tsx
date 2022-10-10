@@ -74,9 +74,6 @@ const OperationPayment = () => {
         : switchFlag1.current && !switchFlag2.current
         ? middleVal.current.length
         : lowerVal.current.length;
-      // let upperValue: number[] = upperVal.current;
-      // let middleValue: number[] = middleVal.current;
-      // let lowerValue: number[] = lowerVal.current;
 
       if (!switchFlag1.current && value === 5) {
         switchFlag1.current = true;
