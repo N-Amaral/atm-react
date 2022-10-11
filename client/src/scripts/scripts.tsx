@@ -31,6 +31,7 @@ function setValue(
       }
     });
   }
+
   if (switchFlag1 && upperVal !== undefined) {
     const inputs: NodeListOf<Element> = !switchFlag1.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
 
@@ -42,6 +43,7 @@ function setValue(
       }
     });
   }
+
   if (switchFlag1 === undefined) {
     const inputs: NodeListOf<Element> = document.querySelectorAll(".lower-input");
     Array.from(inputs).forEach((input: Element, i: number) => {
@@ -92,4 +94,69 @@ function checkSubmit(
   }
 }
 
-export { evalSubmit, checkSubmit, setValue };
+function keyboardInput(
+  button: any,
+  endFlag: { current: boolean },
+  lowerVal: number[],
+  switchFlag1?: { current: boolean | undefined },
+  upperVal?: number[] | undefined,
+  switchFlag2?: { current: boolean | undefined },
+  middleVal?: number[] | undefined
+) {
+  const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
+  const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
+
+  //payment function
+  if (switchFlag1 && switchFlag2 && upperVal && middleVal !== undefined) {
+    const value: any[] = !switchFlag1.current ? upperVal : switchFlag1.current && !switchFlag2.current ? middleVal : lowerVal;
+
+    if (!endFlag.current && checkVal !== undefined) {
+      if (
+        (!switchFlag1.current && !switchFlag2.current && value.length <= 3) ||
+        (switchFlag1.current && !switchFlag2.current && value.length <= 7) ||
+        (switchFlag2.current && value.length <= 5)
+      ) {
+        checkVal.forEach((val) => {
+          value.push(val);
+        });
+      }
+    }
+    if (!endFlag.current && checkVal === undefined) {
+      value.push(btnValue);
+    }
+  }
+
+  //transfer function
+  if (switchFlag1 && upperVal !== undefined) {
+    const value: any[] = !switchFlag1.current ? upperVal : lowerVal;
+
+    if (!endFlag.current && checkVal !== undefined) {
+      if ((switchFlag1.current && value.length <= 5) || (!switchFlag1.current && value.length <= 19)) {
+        checkVal.forEach((val) => {
+          value.push(val);
+        });
+      }
+    }
+    if (!endFlag.current && checkVal === undefined) {
+      value.push(btnValue);
+    }
+  }
+
+  //deposit & withdrawl function
+  if (switchFlag1 === undefined) {
+    const value: any[] = lowerVal;
+
+    if (checkVal !== undefined) {
+      if (!endFlag.current && lowerVal.length <= 3) {
+        checkVal.forEach((val) => {
+          value.push(val);
+        });
+      }
+    }
+    if (!endFlag.current && checkVal === undefined) {
+      value.push(btnValue);
+    }
+  }
+}
+
+export { evalSubmit, checkSubmit, setValue, keyboardInput };

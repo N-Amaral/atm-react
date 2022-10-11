@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { checkSubmit, setValue } from "../scripts/scripts";
+import React, { useEffect, useRef } from "react";
+import { checkSubmit, setValue, keyboardInput } from "../scripts/scripts";
 
 const DepositForm = () => {
   const content: any[any] = [];
@@ -23,32 +23,36 @@ const DepositForm = () => {
 };
 
 const OperationDeposits = () => {
-  const [inputVal, setInputVal] = useState({ depositVal: [0] });
+  const inputVal: {
+    current: {
+      depositVal: number[];
+    };
+  } = useRef({ depositVal: [0] });
 
   const lowerVal: { current: number[] } = useRef([]);
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
     // takes input from,checks for end state flag and pushes it to the current ref
-    function keyboardType(button: any) {
-      //checks if input pressed is 00
-      const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
-      const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
-      const value: any[] = lowerVal.current;
+    // function keyboardType(button: any) {
+    //   //checks if input pressed is 00
+    //   const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
+    //   const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
+    //   const value: any[] = lowerVal.current;
 
-      //read checkVal and consumes its input
-      if (checkVal !== undefined) {
-        if (!endFlag.current && lowerVal.current.length <= 3) {
-          checkVal.forEach((val) => {
-            value.push(val);
-          });
-        }
-      }
-      //if checkVal and endlfag not set, consumes input
-      if (!endFlag.current && checkVal === undefined) {
-        value.push(btnValue);
-      }
-    }
+    //   //read checkVal and consumes its input
+    //   if (checkVal !== undefined) {
+    //     if (!endFlag.current && lowerVal.current.length <= 3) {
+    //       checkVal.forEach((val) => {
+    //         value.push(val);
+    //       });
+    //     }
+    //   }
+    //   //if checkVal and endlfag not set, consumes input
+    //   if (!endFlag.current && checkVal === undefined) {
+    //     value.push(btnValue);
+    //   }
+    // }
 
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
@@ -57,9 +61,8 @@ const OperationDeposits = () => {
     enterBtn[3].addEventListener("click", () => {
       checkSubmit(endFlag, lowerVal.current);
       if (endFlag.current) {
-        setInputVal({
-          depositVal: lowerVal.current,
-        });
+        inputVal.current.depositVal = lowerVal.current;
+        console.log(inputVal.current);
       }
     });
 
@@ -67,13 +70,13 @@ const OperationDeposits = () => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
           checkSubmit(endFlag, lowerVal.current);
-          keyboardType(button);
+          keyboardInput(button, endFlag, lowerVal.current);
           setValue(endFlag, lowerVal.current);
         }
       });
     });
-  }, [inputVal]);
-  console.log(inputVal.depositVal);
+  }, []);
+
   return (
     <>
       <div className="title-container">

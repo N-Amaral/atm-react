@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { checkSubmit, setValue } from "../scripts/scripts";
+import React, { useEffect, useRef } from "react";
+import { checkSubmit, setValue, keyboardInput } from "../scripts/scripts";
 
 const UpperForm = () => {
   const content: any[any] = [];
@@ -42,10 +42,12 @@ const LowerForm = () => {
 };
 
 const OperationTransfer = () => {
-  const [inputVal, setInputVal] = useState({
-    upperVal: [0],
-    lowerVal: [0],
-  });
+  const inputVal: {
+    current: {
+      upperVal: number[];
+      lowerVal: number[];
+    };
+  } = useRef({ upperVal: [0], lowerVal: [0] });
 
   const upperVal: { current: number[] } = useRef([]);
   const lowerVal: { current: number[] } = useRef([]);
@@ -53,67 +55,46 @@ const OperationTransfer = () => {
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
-    // checks length of refs to determine if input is fully set for submission
-
-    // alters inputs on screen to reflect change
-
-    // takes above function and submits according to limits. Switches between upper inputs and lower
-    // function setValue() {
-    //   const upperValue: number[] = upperVal.current;
-    //   const lowerValue: number[] = lowerVal.current;
-    //   const inputs: NodeListOf<Element> = !switchFlag.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
-
-    //   Array.from(inputs).forEach((input: Element, i: number) => {
-    //     if (!endFlag.current && !switchFlag.current) {
-    //       evalSubmit(upperValue, i, input);
-    //     } else if (!endFlag.current && switchFlag.current) {
-    //       evalSubmit(lowerValue, i, input);
-    //     }
-    //   });
-    // }
-
     // takes the values selected on the the on-screen keyboard and pushes it to the right refValue
-    function keyboardType(button: any) {
-      const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
-      const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
-      const value: any[] = !switchFlag.current ? upperVal.current : lowerVal.current;
-      if (!endFlag.current && checkVal !== undefined) {
-        if ((switchFlag.current && value.length <= 5) || (!switchFlag.current && value.length <= 19)) {
-          checkVal.forEach((val) => {
-            value.push(val);
-          });
-        }
-      }
-      if (!endFlag.current && checkVal === undefined) {
-        value.push(btnValue);
-      }
-    }
+    // function keyboardType(button: any) {
+    //   const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
+    //   const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
+    //   const value: any[] = !switchFlag.current ? upperVal.current : lowerVal.current;
+    //   if (!endFlag.current && checkVal !== undefined) {
+    //     if ((switchFlag.current && value.length <= 5) || (!switchFlag.current && value.length <= 19)) {
+    //       checkVal.forEach((val) => {
+    //         value.push(val);
+    //       });
+    //     }
+    //   }
+    //   if (!endFlag.current && checkVal === undefined) {
+    //     value.push(btnValue);
+    //   }
+    // }
 
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
-    // event listener for each onscreen button.
 
     //confirms input from ref to state
     enterBtn[3].addEventListener("click", () => {
       checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
       if (endFlag.current) {
-        setInputVal({
-          upperVal: upperVal.current,
-          lowerVal: lowerVal.current,
-        });
+        inputVal.current.upperVal = upperVal.current;
+        inputVal.current.lowerVal = lowerVal.current;
+        console.log(inputVal.current);
       }
     });
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
           checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
-          keyboardType(button);
+          keyboardInput(button, endFlag, lowerVal.current, switchFlag, upperVal.current);
           setValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
         }
       });
     });
-  }, [inputVal]);
-  console.log(inputVal);
+  }, []);
+
   return (
     <>
       <div className="title-container">
