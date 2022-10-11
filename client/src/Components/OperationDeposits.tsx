@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { checkSubmit, setValue } from "../scripts/scripts";
 
 const DepositForm = () => {
   const content: any[any] = [];
@@ -24,45 +25,20 @@ const DepositForm = () => {
 const OperationDeposits = () => {
   const [inputVal, setInputVal] = useState({ depositVal: [0] });
 
-  const tempVal: { current: number[] } = useRef([]);
+  const lowerVal: { current: number[] } = useRef([]);
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
-    // Checks submission for end state
-    function checkSubmit() {
-      let input: number[] = tempVal.current;
-
-      if (input.length === 5) {
-        endFlag.current = true;
-      }
-    }
-
-    // alters inputs on screen to reflect change
-    function evalSubmit(val: number[], i: number, input: any) {
-      if (val[i] === undefined) {
-        input.value = "";
-      } else {
-        input.value = val[i];
-      }
-    }
-    //evaluates submission
-    function setValue() {
-      const value: number[] = tempVal.current;
-      const inputs: NodeListOf<Element> = document.querySelectorAll(".lower-input");
-      Array.from(inputs).forEach((input: Element, i: number) => {
-        evalSubmit(value, i, input);
-      });
-    }
     // takes input from,checks for end state flag and pushes it to the current ref
     function keyboardType(button: any) {
       //checks if input pressed is 00
       const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
       const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
-      const value: any[] = tempVal.current;
+      const value: any[] = lowerVal.current;
 
       //read checkVal and consumes its input
       if (checkVal !== undefined) {
-        if (!endFlag.current && tempVal.current.length <= 3) {
+        if (!endFlag.current && lowerVal.current.length <= 3) {
           checkVal.forEach((val) => {
             value.push(val);
           });
@@ -79,10 +55,10 @@ const OperationDeposits = () => {
 
     // listener for confirm btn, checks end state and if reached, sets state
     enterBtn[3].addEventListener("click", () => {
-      checkSubmit();
+      checkSubmit(endFlag, lowerVal.current);
       if (endFlag.current) {
         setInputVal({
-          depositVal: tempVal.current,
+          depositVal: lowerVal.current,
         });
       }
     });
@@ -90,9 +66,9 @@ const OperationDeposits = () => {
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
-          checkSubmit();
+          checkSubmit(endFlag, lowerVal.current);
           keyboardType(button);
-          setValue();
+          setValue(endFlag, lowerVal.current);
         }
       });
     });

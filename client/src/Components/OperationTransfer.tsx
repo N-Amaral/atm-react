@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { checkSubmit, setValue } from "../scripts/scripts";
 
 const UpperForm = () => {
   const content: any[any] = [];
@@ -53,39 +54,23 @@ const OperationTransfer = () => {
 
   useEffect(() => {
     // checks length of refs to determine if input is fully set for submission
-    function checkSubmit() {
-      let upperRefVal: number[] = upperVal.current;
-      let lowerRefVal: number[] = lowerVal.current;
 
-      if (!switchFlag.current && upperRefVal.length === 21) {
-        switchFlag.current = true;
-      }
-      if (switchFlag.current && lowerRefVal.length === 7) {
-        endFlag.current = true;
-      }
-    }
     // alters inputs on screen to reflect change
-    function evalSubmit(val: number[], i: number, input: any) {
-      if (val[i] === undefined) {
-        input.value = "";
-      } else {
-        input.value = val[i];
-      }
-    }
-    // takes above function and submits according to limits. Switches between upper inputs and lower
-    function setValue() {
-      const upperValue: number[] = upperVal.current;
-      const lowerValue: number[] = lowerVal.current;
-      const inputs: NodeListOf<Element> = !switchFlag.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
 
-      Array.from(inputs).forEach((input: Element, i: number) => {
-        if (!endFlag.current && !switchFlag.current) {
-          evalSubmit(upperValue, i, input);
-        } else if (!endFlag.current && switchFlag.current) {
-          evalSubmit(lowerValue, i, input);
-        }
-      });
-    }
+    // takes above function and submits according to limits. Switches between upper inputs and lower
+    // function setValue() {
+    //   const upperValue: number[] = upperVal.current;
+    //   const lowerValue: number[] = lowerVal.current;
+    //   const inputs: NodeListOf<Element> = !switchFlag.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
+
+    //   Array.from(inputs).forEach((input: Element, i: number) => {
+    //     if (!endFlag.current && !switchFlag.current) {
+    //       evalSubmit(upperValue, i, input);
+    //     } else if (!endFlag.current && switchFlag.current) {
+    //       evalSubmit(lowerValue, i, input);
+    //     }
+    //   });
+    // }
 
     // takes the values selected on the the on-screen keyboard and pushes it to the right refValue
     function keyboardType(button: any) {
@@ -110,7 +95,7 @@ const OperationTransfer = () => {
 
     //confirms input from ref to state
     enterBtn[3].addEventListener("click", () => {
-      checkSubmit();
+      checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
       if (endFlag.current) {
         setInputVal({
           upperVal: upperVal.current,
@@ -121,9 +106,9 @@ const OperationTransfer = () => {
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
-          checkSubmit();
+          checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
           keyboardType(button);
-          setValue();
+          setValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
         }
       });
     });

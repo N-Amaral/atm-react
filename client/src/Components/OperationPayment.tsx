@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { checkSubmit, setValue } from "../scripts/scripts";
 
 const UpperForm = () => {
   const content: any[any] = [];
@@ -68,59 +69,30 @@ const OperationPayment = () => {
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
-    function checkSubmit(
-      upperVal: number[],
-      middleVal: number[],
-      lowerVal: number[],
-      switchFlag1: { current: boolean },
-      switchFlag2: { current: boolean },
-      endFlag: { current: boolean }
-    ) {
-      const value: number = !switchFlag1.current ? upperVal.length : switchFlag1 && !switchFlag2.current ? middleVal.length : lowerVal.length;
+    // function setValue(
+    //   upperVal: number[],
+    //   middleVal: number[],
+    //   lowerVal: number[],
+    //   switchFlag1: { current: boolean },
+    //   switchFlag2: { current: boolean },
+    //   endFlag: { current: boolean }
+    // ) {
+    //   const inputs: NodeListOf<Element> = !switchFlag1.current
+    //     ? document.querySelectorAll(".upper-input")
+    //     : switchFlag1.current && !switchFlag2.current
+    //     ? document.querySelectorAll(".middle-input")
+    //     : document.querySelectorAll(".lower-input");
 
-      if (!switchFlag1.current && value === 5) {
-        switchFlag1.current = true;
-      }
-      if (!switchFlag2.current && value === 9) {
-        switchFlag2.current = true;
-      }
-      if (switchFlag2.current && value === 7) {
-        endFlag.current = true;
-      }
-    }
-
-    function evalSubmit(val: number[], i: number, input: any) {
-      if (val[i] === undefined) {
-        input.value = "";
-      } else {
-        input.value = val[i];
-      }
-    }
-
-    function setValue(
-      upperVal: number[],
-      middleVal: number[],
-      lowerVal: number[],
-      switchFlag1: { current: boolean },
-      switchFlag2: { current: boolean },
-      endFlag: { current: boolean }
-    ) {
-      const inputs: NodeListOf<Element> = !switchFlag1.current
-        ? document.querySelectorAll(".upper-input")
-        : switchFlag1.current && !switchFlag2.current
-        ? document.querySelectorAll(".middle-input")
-        : document.querySelectorAll(".lower-input");
-
-      Array.from(inputs).forEach((input: Element, i: number) => {
-        if (!switchFlag1.current) {
-          evalSubmit(upperVal, i, input);
-        } else if (switchFlag1.current && !switchFlag2.current) {
-          evalSubmit(middleVal, i, input);
-        } else if (!endFlag.current && switchFlag2.current) {
-          evalSubmit(lowerVal, i, input);
-        }
-      });
-    }
+    //   Array.from(inputs).forEach((input: Element, i: number) => {
+    //     if (!switchFlag1.current) {
+    //       evalSubmit(upperVal, i, input);
+    //     } else if (switchFlag1.current && !switchFlag2.current) {
+    //       evalSubmit(middleVal, i, input);
+    //     } else if (!endFlag.current && switchFlag2.current) {
+    //       evalSubmit(lowerVal, i, input);
+    //     }
+    //   });
+    // }
 
     function keyboardType(button: any) {
       const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
@@ -146,7 +118,7 @@ const OperationPayment = () => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
     enterBtn[3].addEventListener("click", () => {
-      checkSubmit(upperVal.current, middleVal.current, lowerVal.current, switchFlag1, switchFlag2, endFlag);
+      checkSubmit(endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
       if (endFlag.current) {
         setInputVal({
           upperVal: upperVal.current,
@@ -158,9 +130,9 @@ const OperationPayment = () => {
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
-          checkSubmit(upperVal.current, middleVal.current, lowerVal.current, switchFlag1, switchFlag2, endFlag);
+          checkSubmit(endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
           keyboardType(button);
-          setValue(upperVal.current, middleVal.current, lowerVal.current, switchFlag1, switchFlag2, endFlag);
+          setValue(endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
         }
       });
     });
