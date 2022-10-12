@@ -33,27 +33,6 @@ const OperationDeposits = () => {
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
-    // takes input from,checks for end state flag and pushes it to the current ref
-    // function keyboardType(button: any) {
-    //   //checks if input pressed is 00
-    //   const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
-    //   const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
-    //   const value: any[] = lowerVal.current;
-
-    //   //read checkVal and consumes its input
-    //   if (checkVal !== undefined) {
-    //     if (!endFlag.current && lowerVal.current.length <= 3) {
-    //       checkVal.forEach((val) => {
-    //         value.push(val);
-    //       });
-    //     }
-    //   }
-    //   //if checkVal and endlfag not set, consumes input
-    //   if (!endFlag.current && checkVal === undefined) {
-    //     value.push(btnValue);
-    //   }
-    // }
-
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
 

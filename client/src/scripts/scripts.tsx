@@ -127,7 +127,8 @@ function keyboardInput(
   }
 
   //transfer function
-  if (switchFlag1 && upperVal !== undefined) {
+
+  if (switchFlag1 && upperVal !== undefined && switchFlag2 === undefined) {
     const value: any[] = !switchFlag1.current ? upperVal : lowerVal;
 
     if (!endFlag.current && checkVal !== undefined) {

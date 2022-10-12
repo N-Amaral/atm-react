@@ -71,27 +71,6 @@ const OperationPayment = () => {
   let endFlag: { current: boolean } = useRef(false);
 
   useEffect(() => {
-    function keyboardType(button: any) {
-      const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
-      const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
-      const value: any[] = !switchFlag1.current ? upperVal.current : switchFlag1.current && !switchFlag2.current ? middleVal.current : lowerVal.current;
-
-      if (!endFlag.current && checkVal !== undefined) {
-        if (
-          (!switchFlag1.current && !switchFlag2.current && value.length <= 3) ||
-          (switchFlag1.current && !switchFlag2.current && value.length <= 7) ||
-          (switchFlag2.current && value.length <= 5)
-        ) {
-          checkVal.forEach((val) => {
-            value.push(val);
-          });
-        }
-      }
-      if (!endFlag.current && checkVal === undefined) {
-        value.push(btnValue);
-      }
-    }
-
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
 
@@ -104,11 +83,11 @@ const OperationPayment = () => {
         console.log(inputVal.current);
       }
     });
+
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
           checkSubmit(endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
-          // keyboardType(button);
           keyboardInput(button, endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
           setValue(endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
         }
@@ -144,6 +123,9 @@ const OperationPayment = () => {
             </span>
           </div>
         </div>
+      </div>
+      <div className="warning-container">
+        <h5>Confirme os dados com a tecla verde</h5>
       </div>
     </>
   );

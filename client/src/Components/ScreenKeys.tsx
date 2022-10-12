@@ -44,7 +44,7 @@ const Screenkeys = () => {
       }
     }
 
-    Array.from(sideBtns).forEach((btn, i) => {
+    Array.from(sideBtns).forEach((btn) => {
       btn.addEventListener("click", () => {
         let id: number = parseInt(btn.id);
         switch (id) {
