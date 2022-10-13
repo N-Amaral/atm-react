@@ -201,9 +201,16 @@ function clearInput(
         upperVal.current = [];
         evalSubmit(upperVal.current, i, input);
       } else {
-        lowerVal.current = [];
-        endFlag.current = false;
-        evalSubmit(lowerVal.current, i, input);
+        if (upperVal.current !== undefined && lowerVal.current.length === 0) {
+          upperVal.current = [];
+          switchFlag1.current = false;
+          evalSubmit(upperVal.current, i, input);
+        }
+        if (upperVal.current !== undefined && lowerVal.current.length !== 0) {
+          lowerVal.current = [];
+          endFlag.current = false;
+          evalSubmit(lowerVal.current, i, input);
+        }
       }
     });
   }
