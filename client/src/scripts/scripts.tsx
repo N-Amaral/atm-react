@@ -94,6 +94,7 @@ function checkSubmit(
   }
 }
 
+//registers and saves onscreen keyboard inputs
 function keyboardInput(
   button: any,
   endFlag: { current: boolean },
@@ -160,4 +161,61 @@ function keyboardInput(
   }
 }
 
-export { evalSubmit, checkSubmit, setValue, keyboardInput };
+//clears current total input per line of inputs
+function clearInput(
+  endFlag: { current: boolean },
+  lowerVal: { current: number[] },
+  switchFlag1?: { current: boolean | undefined },
+  upperVal?: { current: number[] | undefined },
+  switchFlag2?: { current: boolean | undefined },
+  middleVal?: { current: number[] | undefined }
+) {
+  if (switchFlag1 && switchFlag2 && upperVal && middleVal !== undefined) {
+    const inputs: NodeListOf<Element> = !switchFlag1.current
+      ? document.querySelectorAll(".upper-input")
+      : switchFlag1.current && !switchFlag2.current
+      ? document.querySelectorAll(".middle-input")
+      : document.querySelectorAll(".lower-input");
+
+    Array.from(inputs).forEach((input: Element, i: number) => {
+      if (!switchFlag1.current) {
+        upperVal.current = [];
+        evalSubmit(upperVal.current, i, input);
+      }
+      if (switchFlag1.current && !switchFlag2.current) {
+        middleVal.current = [];
+        evalSubmit(middleVal.current, i, input);
+      }
+      if (switchFlag1.current && switchFlag2.current) {
+        lowerVal.current = [];
+        endFlag.current = false;
+        evalSubmit(lowerVal.current, i, input);
+      }
+    });
+  }
+
+  if (switchFlag1 && upperVal !== undefined && switchFlag2 === undefined) {
+    const inputs: NodeListOf<Element> = !switchFlag1.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
+    Array.from(inputs).forEach((input: Element, i: number) => {
+      if (!switchFlag1.current) {
+        upperVal.current = [];
+        evalSubmit(upperVal.current, i, input);
+      } else {
+        lowerVal.current = [];
+        endFlag.current = false;
+        evalSubmit(lowerVal.current, i, input);
+      }
+    });
+  }
+
+  //for deposits and withdrawls
+  if (switchFlag1 === undefined) {
+    lowerVal.current = [];
+    const inputs: NodeListOf<Element> = document.querySelectorAll(".lower-input");
+    Array.from(inputs).forEach((input: Element, i: number) => {
+      evalSubmit(lowerVal.current, i, input);
+      endFlag.current = false;
+    });
+  }
+}
+export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput };

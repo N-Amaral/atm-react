@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { checkSubmit, setValue, keyboardInput } from "../scripts/scripts";
+import { checkSubmit, setValue, keyboardInput, clearInput } from "../scripts/scripts";
 
 const DepositForm = () => {
   const content: any[any] = [];
@@ -43,6 +43,10 @@ const OperationDeposits = () => {
         inputVal.current.depositVal = lowerVal.current;
         console.log(inputVal.current);
       }
+    });
+
+    enterBtn[1].addEventListener("click", () => {
+      clearInput(endFlag, lowerVal);
     });
 
     Array.from(buttons).forEach((button) => {
