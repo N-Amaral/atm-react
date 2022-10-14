@@ -9,10 +9,10 @@ function evalSubmit(val: number[], i: number, input: any) {
 function setValue(
   endFlag: { current: boolean },
   lowerVal: number[],
-  switchFlag1?: { current: boolean | undefined },
-  upperVal?: number[] | undefined,
-  switchFlag2?: { current: boolean | undefined },
-  middleVal?: number[] | undefined
+  switchFlag1?: { current: boolean },
+  upperVal?: number[],
+  switchFlag2?: { current: boolean },
+  middleVal?: number[]
 ) {
   if (switchFlag1 && switchFlag2 && upperVal && middleVal !== undefined) {
     const inputs: NodeListOf<Element> = !switchFlag1.current
@@ -55,10 +55,10 @@ function setValue(
 function checkSubmit(
   endFlag: { current: boolean },
   lowerVal: number[],
-  switchFlag1?: { current: boolean | undefined },
-  upperVal?: number[] | undefined,
-  switchFlag2?: { current: boolean | undefined },
-  middleVal?: number[] | undefined
+  switchFlag1?: { current: boolean },
+  upperVal?: number[],
+  switchFlag2?: { current: boolean },
+  middleVal?: number[]
 ) {
   if (switchFlag1 && switchFlag2 && upperVal && middleVal !== undefined) {
     const value: number = !switchFlag1.current ? upperVal.length : switchFlag1 && !switchFlag2.current ? middleVal.length : lowerVal.length;
@@ -99,15 +99,15 @@ function keyboardInput(
   button: any,
   endFlag: { current: boolean },
   lowerVal: number[],
-  switchFlag1?: { current: boolean | undefined },
-  upperVal?: number[] | undefined,
-  switchFlag2?: { current: boolean | undefined },
-  middleVal?: number[] | undefined
+  switchFlag1?: { current: boolean },
+  upperVal?: number[],
+  switchFlag2?: { current: boolean },
+  middleVal?: number[]
 ) {
   const checkVal: number[] | undefined = button.innerText === "00" ? [0, 0].flat(1) : undefined;
   const btnValue: number | number[] = checkVal !== undefined ? checkVal.flat(1) : parseInt(button.innerText);
 
-  //payment function
+  // (3 total inputs)
   if (switchFlag1 && switchFlag2 && upperVal && middleVal !== undefined) {
     const value: any[] = !switchFlag1.current ? upperVal : switchFlag1.current && !switchFlag2.current ? middleVal : lowerVal;
 
@@ -127,7 +127,7 @@ function keyboardInput(
     }
   }
 
-  //transfer function
+  //(2 total inputs)
 
   if (switchFlag1 && upperVal !== undefined && switchFlag2 === undefined) {
     const value: any[] = !switchFlag1.current ? upperVal : lowerVal;
@@ -144,7 +144,7 @@ function keyboardInput(
     }
   }
 
-  //deposit & withdrawl function
+  //(1 total input)
   if (switchFlag1 === undefined) {
     const value: any[] = lowerVal;
 
@@ -161,15 +161,16 @@ function keyboardInput(
   }
 }
 
-//clears current total input per line of inputs
+//clears current input group
 function clearInput(
   endFlag: { current: boolean },
   lowerVal: { current: number[] },
-  switchFlag1?: { current: boolean | undefined },
-  upperVal?: { current: number[] | undefined },
-  switchFlag2?: { current: boolean | undefined },
-  middleVal?: { current: number[] | undefined }
+  switchFlag1?: { current: boolean },
+  upperVal?: { current: number[] },
+  switchFlag2?: { current: boolean },
+  middleVal?: { current: number[] }
 ) {
+  //(3 total inputs)
   if (switchFlag1 && switchFlag2 && upperVal && middleVal !== undefined) {
     const inputs: NodeListOf<Element> = !switchFlag1.current
       ? document.querySelectorAll(".upper-input")
@@ -177,52 +178,127 @@ function clearInput(
       ? document.querySelectorAll(".middle-input")
       : document.querySelectorAll(".lower-input");
 
-    Array.from(inputs).forEach((input: Element, i: number) => {
-      if (!switchFlag1.current) {
-        upperVal.current = [];
+    if (!switchFlag1.current && upperVal.current.length !== 0) {
+      console.log(0);
+      upperVal.current = [];
+      Array.from(inputs).forEach((input: Element, i: number) => {
         evalSubmit(upperVal.current, i, input);
-      }
-      if (switchFlag1.current && !switchFlag2.current) {
-        middleVal.current = [];
-        evalSubmit(middleVal.current, i, input);
-      }
-      if (switchFlag1.current && switchFlag2.current) {
-        lowerVal.current = [];
-        endFlag.current = false;
-        evalSubmit(lowerVal.current, i, input);
-      }
-    });
-  }
+      });
+    }
 
+    if (switchFlag1.current && !switchFlag2.current && middleVal.current.length === 0) {
+      console.log(1);
+      const newInputs: NodeListOf<Element> = document.querySelectorAll(".upper-input");
+      upperVal.current = [];
+      switchFlag1.current = false;
+      Array.from(newInputs).forEach((input: Element, i: number) => {
+        evalSubmit(upperVal.current, i, input);
+      });
+    }
+
+    if (switchFlag1.current && !switchFlag2.current && middleVal.current.length !== 0) {
+      console.log(2);
+      middleVal.current = [];
+      Array.from(inputs).forEach((input: Element, i: number) => {
+        evalSubmit(middleVal.current, i, input);
+      });
+    }
+
+    if (switchFlag2.current && lowerVal.current.length === 0) {
+      console.log(3);
+      const newInputs: NodeListOf<Element> = document.querySelectorAll(".middle-input");
+      middleVal.current = [];
+      switchFlag2.current = false;
+      Array.from(newInputs).forEach((input: Element, i: number) => {
+        evalSubmit(middleVal.current, i, input);
+      });
+    }
+    if (switchFlag2.current && lowerVal.current.length !== 0) {
+      console.log(4);
+      lowerVal.current = [];
+      endFlag.current = false;
+      Array.from(inputs).forEach((input: Element, i: number) => {
+        evalSubmit(lowerVal.current, i, input);
+      });
+    }
+  }
+  //(2 total inputs)
   if (switchFlag1 && upperVal !== undefined && switchFlag2 === undefined) {
     const inputs: NodeListOf<Element> = !switchFlag1.current ? document.querySelectorAll(".upper-input") : document.querySelectorAll(".lower-input");
-    Array.from(inputs).forEach((input: Element, i: number) => {
-      if (!switchFlag1.current) {
-        upperVal.current = [];
+
+    if (!switchFlag1.current && upperVal.current.length !== 0) {
+      upperVal.current = [];
+      Array.from(inputs).forEach((input: Element, i: number) => {
         evalSubmit(upperVal.current, i, input);
-      } else {
-        if (upperVal.current !== undefined && lowerVal.current.length === 0) {
-          upperVal.current = [];
-          switchFlag1.current = false;
-          evalSubmit(upperVal.current, i, input);
-        }
-        if (upperVal.current !== undefined && lowerVal.current.length !== 0) {
-          lowerVal.current = [];
-          endFlag.current = false;
-          evalSubmit(lowerVal.current, i, input);
-        }
-      }
-    });
+      });
+    }
+    if (switchFlag1.current && lowerVal.current.length === 0) {
+      const newInputs: NodeListOf<Element> = document.querySelectorAll(".upper-input");
+      upperVal.current = [];
+      switchFlag1.current = false;
+      Array.from(newInputs).forEach((input: Element, i: number) => {
+        evalSubmit(upperVal.current, i, input);
+      });
+    }
+    if (switchFlag1.current && lowerVal.current.length !== 0) {
+      lowerVal.current = [];
+      endFlag.current = false;
+      Array.from(inputs).forEach((input: Element, i: number) => {
+        evalSubmit(lowerVal.current, i, input);
+      });
+    }
   }
 
-  //for deposits and withdrawls
+  //(1 total input)
   if (switchFlag1 === undefined) {
-    lowerVal.current = [];
     const inputs: NodeListOf<Element> = document.querySelectorAll(".lower-input");
+    lowerVal.current = [];
+    endFlag.current = false;
     Array.from(inputs).forEach((input: Element, i: number) => {
       evalSubmit(lowerVal.current, i, input);
-      endFlag.current = false;
     });
   }
 }
 export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput };
+
+// Array.from(inputs).forEach((input: Element, i: number) => {
+//   if (!switchFlag1.current) {
+//     upperVal.current = [];
+//     evalSubmit(upperVal.current, i, input);
+//   }
+//   if (switchFlag1.current && !switchFlag2.current) {
+//     if (upperVal.current && middleVal.current !== undefined && middleVal.current.length === 0) {
+//       switchFlag1.current = false;
+//       upperVal.current = [];
+//       evalSubmit(upperVal.current, i, input);
+//     }
+//     if (middleVal.current !== undefined && middleVal.current.length !== 0) {
+//       switchFlag2.current = false;
+//       middleVal.current = [];
+//       evalSubmit(middleVal.current, i, input);
+//     }
+//   }
+//   if (switchFlag1.current && switchFlag2.current) {
+//     if (upperVal.current && middleVal.current !== undefined && middleVal.current.length === 0) {
+//       switchFlag1.current = false;
+//       switchFlag2.current = false;
+//       upperVal.current = [];
+//       evalSubmit(upperVal.current, i, input);
+//     }
+//     if (middleVal.current !== undefined && middleVal.current.length !== 0) {
+//       endFlag.current = false;
+//       switchFlag2.current = false;
+//       middleVal.current = [];
+//       evalSubmit(middleVal.current, i, input);
+//     }
+//     if (lowerVal.current.length !== 0) {
+//       lowerVal.current = [];
+//       endFlag.current = false;
+//       evalSubmit(lowerVal.current, i, input);
+//     }
+//     if (lowerVal.current.length === 0) {
+//       middleVal.current = [];
+//       evalSubmit(middleVal.current, i, input);
+//     }
+//   }
+// });
