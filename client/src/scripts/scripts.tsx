@@ -1,3 +1,4 @@
+//takes value from setValue function and passes it into correct input inside the input group.
 function evalSubmit(val: number[], i: number, input: any) {
   if (val[i] === undefined) {
     input.value = "";
@@ -6,6 +7,7 @@ function evalSubmit(val: number[], i: number, input: any) {
   }
 }
 
+//checks input and boolean flags for input group limits
 function setValue(
   endFlag: { current: boolean },
   lowerVal: number[],
@@ -52,6 +54,7 @@ function setValue(
   }
 }
 
+//checks input and toggles boolean flags responsible for switch from input group to input group
 function checkSubmit(
   endFlag: { current: boolean },
   lowerVal: number[],
@@ -161,7 +164,7 @@ function keyboardInput(
   }
 }
 
-//clears current input group
+//clears input group content
 function clearInput(
   endFlag: { current: boolean },
   lowerVal: { current: number[] },
@@ -179,7 +182,6 @@ function clearInput(
       : document.querySelectorAll(".lower-input");
 
     if (!switchFlag1.current && upperVal.current.length !== 0) {
-      console.log(0);
       upperVal.current = [];
       Array.from(inputs).forEach((input: Element, i: number) => {
         evalSubmit(upperVal.current, i, input);
@@ -187,7 +189,6 @@ function clearInput(
     }
 
     if (switchFlag1.current && !switchFlag2.current && middleVal.current.length === 0) {
-      console.log(1);
       const newInputs: NodeListOf<Element> = document.querySelectorAll(".upper-input");
       upperVal.current = [];
       switchFlag1.current = false;
@@ -197,7 +198,6 @@ function clearInput(
     }
 
     if (switchFlag1.current && !switchFlag2.current && middleVal.current.length !== 0) {
-      console.log(2);
       middleVal.current = [];
       Array.from(inputs).forEach((input: Element, i: number) => {
         evalSubmit(middleVal.current, i, input);
@@ -205,7 +205,6 @@ function clearInput(
     }
 
     if (switchFlag2.current && lowerVal.current.length === 0) {
-      console.log(3);
       const newInputs: NodeListOf<Element> = document.querySelectorAll(".middle-input");
       middleVal.current = [];
       switchFlag2.current = false;
@@ -214,7 +213,6 @@ function clearInput(
       });
     }
     if (switchFlag2.current && lowerVal.current.length !== 0) {
-      console.log(4);
       lowerVal.current = [];
       endFlag.current = false;
       Array.from(inputs).forEach((input: Element, i: number) => {
@@ -259,46 +257,5 @@ function clearInput(
     });
   }
 }
-export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput };
 
-// Array.from(inputs).forEach((input: Element, i: number) => {
-//   if (!switchFlag1.current) {
-//     upperVal.current = [];
-//     evalSubmit(upperVal.current, i, input);
-//   }
-//   if (switchFlag1.current && !switchFlag2.current) {
-//     if (upperVal.current && middleVal.current !== undefined && middleVal.current.length === 0) {
-//       switchFlag1.current = false;
-//       upperVal.current = [];
-//       evalSubmit(upperVal.current, i, input);
-//     }
-//     if (middleVal.current !== undefined && middleVal.current.length !== 0) {
-//       switchFlag2.current = false;
-//       middleVal.current = [];
-//       evalSubmit(middleVal.current, i, input);
-//     }
-//   }
-//   if (switchFlag1.current && switchFlag2.current) {
-//     if (upperVal.current && middleVal.current !== undefined && middleVal.current.length === 0) {
-//       switchFlag1.current = false;
-//       switchFlag2.current = false;
-//       upperVal.current = [];
-//       evalSubmit(upperVal.current, i, input);
-//     }
-//     if (middleVal.current !== undefined && middleVal.current.length !== 0) {
-//       endFlag.current = false;
-//       switchFlag2.current = false;
-//       middleVal.current = [];
-//       evalSubmit(middleVal.current, i, input);
-//     }
-//     if (lowerVal.current.length !== 0) {
-//       lowerVal.current = [];
-//       endFlag.current = false;
-//       evalSubmit(lowerVal.current, i, input);
-//     }
-//     if (lowerVal.current.length === 0) {
-//       middleVal.current = [];
-//       evalSubmit(middleVal.current, i, input);
-//     }
-//   }
-// });
+export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput };

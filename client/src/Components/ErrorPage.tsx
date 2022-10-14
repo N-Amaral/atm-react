@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const ErrorPage = () => {
+const PageContent = () => {
   return (
     <div>
-      <h1>ERROR</h1>
-      <button>
-        <a href="/menu">Go Back</a>
-      </button>
+      <div className="title-container">
+        <h1>ERRO</h1>
+      </div>
+      <div className="error-container">
+        <p className="error-message"></p>
+      </div>
     </div>
   );
+};
+
+const ErrorPage = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      window.location.replace("http://localhost:3000/menu");
+    }, 3000);
+  });
+  return <PageContent />;
 };
 
 export default ErrorPage;
