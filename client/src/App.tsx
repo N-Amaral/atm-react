@@ -10,7 +10,7 @@ import Screenkeys from "./components/ScreenKeys";
 import OperationTransfer from "./components/OperationTransfer";
 import OperationConfirmation from "./components/OperationConfirm";
 import OperationPayment from "./components/OperationPayment";
-import OperationConsults from "./components/OperationConsults";
+import OperationConsults from "./components/OperationQueries";
 import OperationDeposits from "./components/OperationDeposits";
 import OperationLogin from "./components/OperationLogin";
 

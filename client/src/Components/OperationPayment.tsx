@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { checkSubmit, setValue, keyboardInput, clearInput } from "../scripts/scripts";
+import { checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput } from "../scripts/scripts";
 
 const UpperForm = () => {
   const content: any[any] = [];
@@ -74,18 +74,19 @@ const OperationPayment = () => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
 
-    enterBtn[3].addEventListener("click", () => {
-      checkSubmit(endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
-      if (endFlag.current) {
-        inputVal.current.upperVal = upperVal.current;
-        inputVal.current.middleVal = middleVal.current;
-        inputVal.current.lowerVal = lowerVal.current;
-        console.log(inputVal.current);
-      }
+    //cancel input
+    enterBtn[0].addEventListener("click", () => {
+      cancelInput();
     });
 
+    //clears input
     enterBtn[1].addEventListener("click", () => {
       clearInput(endFlag, lowerVal, switchFlag1, upperVal, switchFlag2, middleVal);
+    });
+
+    //confirm input
+    enterBtn[3].addEventListener("click", () => {
+      finalInput(inputVal, endFlag, lowerVal.current, switchFlag1, upperVal.current, switchFlag2, middleVal.current);
     });
 
     Array.from(buttons).forEach((button) => {

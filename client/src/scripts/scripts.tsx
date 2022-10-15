@@ -258,4 +258,35 @@ function clearInput(
   }
 }
 
-export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput };
+//cancels current input operation
+function cancelInput() {
+  window.location.replace("http://localhost:3000/menu");
+}
+
+//checks for pre-operation confirmation
+function finalInput(
+  inputVal: { current: { lowerVal: number[]; upperVal?: number[]; middleVal?: number[] } },
+  endFlag: { current: boolean },
+  lowerVal: number[],
+  switchFlag1?: { current: boolean },
+  upperVal?: number[],
+  switchFlag2?: { current: boolean },
+  middleVal?: number[]
+) {
+  checkSubmit(endFlag, lowerVal, switchFlag1, upperVal, switchFlag2, middleVal);
+  if (endFlag.current && arguments.length === 3) {
+    inputVal.current.lowerVal = lowerVal;
+  }
+  if (endFlag.current && arguments.length === 5) {
+    inputVal.current.upperVal = upperVal;
+    inputVal.current.lowerVal = lowerVal;
+  }
+  if (endFlag.current && arguments.length === 7) {
+    inputVal.current.upperVal = upperVal;
+    inputVal.current.middleVal = middleVal;
+    inputVal.current.lowerVal = lowerVal;
+  }
+  console.log(inputVal.current);
+}
+
+export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput };

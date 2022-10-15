@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { checkSubmit, setValue, keyboardInput, clearInput } from "../scripts/scripts";
+import { checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput } from "../scripts/scripts";
 
 const DepositForm = () => {
   const content: any[any] = [];
@@ -25,9 +25,9 @@ const DepositForm = () => {
 const OperationDeposits = () => {
   const inputVal: {
     current: {
-      depositVal: number[];
+      lowerVal: number[];
     };
-  } = useRef({ depositVal: [0] });
+  } = useRef({ lowerVal: [0] });
 
   const lowerVal: { current: number[] } = useRef([]);
   let endFlag: { current: boolean } = useRef(false);
@@ -36,17 +36,19 @@ const OperationDeposits = () => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
 
-    // listener for confirm btn, checks end state and if reached, sets state
-    enterBtn[3].addEventListener("click", () => {
-      checkSubmit(endFlag, lowerVal.current);
-      if (endFlag.current) {
-        inputVal.current.depositVal = lowerVal.current;
-        console.log(inputVal.current);
-      }
+    //cancel input
+    enterBtn[0].addEventListener("click", () => {
+      cancelInput();
     });
 
+    //clears input
     enterBtn[1].addEventListener("click", () => {
       clearInput(endFlag, lowerVal);
+    });
+
+    // confirm input
+    enterBtn[3].addEventListener("click", () => {
+      finalInput(inputVal, endFlag, lowerVal.current);
     });
 
     Array.from(buttons).forEach((button) => {
