@@ -57,20 +57,20 @@ const OperationTransfer = () => {
 
   useEffect(() => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
-    const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
+    const sidepadBtns: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
 
     //cancel input
-    enterBtn[0].addEventListener("click", () => {
+    sidepadBtns[0].addEventListener("click", () => {
       cancelInput();
     });
 
     //clear input
-    enterBtn[1].addEventListener("click", () => {
+    sidepadBtns[1].addEventListener("click", () => {
       clearInput(endFlag, lowerVal, switchFlag, upperVal);
     });
 
     //confirm input
-    enterBtn[3].addEventListener("click", () => {
+    sidepadBtns[3].addEventListener("click", () => {
       finalInput(inputVal, endFlag, lowerVal.current, switchFlag, upperVal.current);
     });
 

@@ -1,12 +1,9 @@
 const express = require("express");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 const app = express();
-const login = require("./routes/login");
-
-app.use("/login", login);
 
 app.get("/api", (req, res) => {
-  res.json({ message: "Hello from Express!" });
+  res.send("Hello from api");
 });
 
 app.listen(PORT, () => {

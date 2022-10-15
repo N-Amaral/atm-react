@@ -10,7 +10,7 @@ import Screenkeys from "./components/ScreenKeys";
 import OperationTransfer from "./components/OperationTransfer";
 import OperationConfirmation from "./components/OperationConfirm";
 import OperationPayment from "./components/OperationPayment";
-import OperationConsults from "./components/OperationQueries";
+import OperationQuery from "./components/OperationQueries";
 import OperationDeposits from "./components/OperationDeposits";
 import OperationLogin from "./components/OperationLogin";
 
@@ -38,19 +38,19 @@ const App = () => {
       component = <Menu dataSet={data} />;
       break;
     case "/levantamentos":
-      component = <OperationWithdrawl dataSet={data} />;
+      component = <OperationWithdrawl dataSet={data["PT"]["levantamentos"]} />;
       break;
     case "/transferencias":
       component = <OperationTransfer />;
       break;
-    case "/operationconfirmation":
+    case "/confirm":
       component = <OperationConfirmation />;
       break;
     case "/pagamentos":
       component = <OperationPayment />;
       break;
     case "/consultas":
-      component = <OperationConsults dataSet={data} />;
+      component = <OperationQuery dataSet={data["PT"]["consultas"]} />;
       break;
     case "/depositos":
       component = <OperationDeposits />;

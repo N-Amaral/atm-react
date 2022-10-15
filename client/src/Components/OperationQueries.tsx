@@ -1,22 +1,23 @@
 import React from "react";
 import { MenuList } from "./Menu";
 
-const OperationConsults = (props: { dataSet: any[any] }) => {
-  const dataSet: any[string] = Object.entries(props.dataSet["PT"]["consultas"]);
+const OperationQuery = (props: { dataSet: string[] }) => {
+  const dataSet: string[] = Object.values(props.dataSet);
   const operations: string[] = [];
 
+  console.log(dataSet);
   dataSet.map((data: string) => {
-    operations.push(data[1]);
+    operations.push(data);
     return operations;
   });
 
   return (
     <>
       <div className="operations-container">
-        <MenuList list={operations} />
+        <MenuList list={operations} values={undefined} />
       </div>
     </>
   );
 };
 
-export default OperationConsults;
+export default OperationQuery;

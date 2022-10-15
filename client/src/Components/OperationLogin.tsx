@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { UpperForm } from "./OperationTransfer";
-import { checkSubmit, setValue, keyboardInput, clearInput } from "../scripts/scripts";
+import { checkSubmit, setValue, keyboardInput, clearInput, finalInput } from "../scripts/scripts";
 
 const PinForm = () => {
   const content: any[any] = [];
@@ -33,18 +33,13 @@ const OperationLogin = () => {
     const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
     // event listener for each onscreen button.
 
-    //confirms input from ref to state
-    enterBtn[3].addEventListener("click", () => {
-      checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
-      if (endFlag.current) {
-        inputVal.current.upperVal = upperVal.current;
-        inputVal.current.lowerVal = lowerVal.current;
-        console.log(inputVal.current);
-      }
-    });
-
     enterBtn[1].addEventListener("click", () => {
       clearInput(endFlag, lowerVal, switchFlag, upperVal);
+    });
+
+    //confirm input
+    enterBtn[3].addEventListener("click", () => {
+      finalInput(inputVal, endFlag, lowerVal.current, switchFlag, upperVal.current);
     });
 
     Array.from(buttons).forEach((button) => {

@@ -15,7 +15,7 @@ const Operation = (props: { name: string; elementId: number }) => {
   );
 };
 
-const MenuList = (props: { list: string[] }) => {
+const MenuList = (props: { list: string[]; values: number[] | undefined }) => {
   return (
     <ul className="operations-list">
       {props.list.map((operation, i) => {
@@ -36,7 +36,7 @@ const Menu = (props: { dataSet: any[string] }) => {
 
   return (
     <div className="operations-container">
-      <MenuList list={operations} />
+      <MenuList list={operations} values={undefined} />
     </div>
   );
 };

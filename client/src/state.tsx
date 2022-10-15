@@ -1,14 +1,19 @@
-export const operationList: {} = {
-  EN: {
-    withdrawls: ["20 euros", "40 euros", "60 euros", "100 euros", "200 euros", "Outras importâncias", "Outras Operações"],
-    consults: ["Account Balance", "Account Movements", "NIB & IBAN", "Outras Operações"],
-    transfers: {},
-    payments: {},
-    deposits: {},
-    exit: {},
-  },
+export const operationList: {
   PT: {
-    levantamentos: ["20 euros", "40 euros", "60 euros", "100 euros", "200 euros", "Outras importâncias", "Outras Operações"],
+    levantamentos: { opTitles: string[]; opValues: number[]; opRoutes: string[] };
+    consultas: string[];
+    transferencias: {};
+    pagamentos: {};
+    depositos: {};
+    sair: {};
+  };
+} = {
+  PT: {
+    levantamentos: {
+      opTitles: ["20 euros", "40 euros", "60 euros", "100 euros", "200 euros", "Outras importâncias", "Outras Operações"],
+      opValues: [20, 40, 60, 100, 200],
+      opRoutes: ["/confirm", "/deposit"],
+    },
     consultas: ["Consultas de Saldo", "Consulta de Movimentos de Conta", "Consulta a NIB e IBAN"],
     transferencias: {},
     pagamentos: {},
