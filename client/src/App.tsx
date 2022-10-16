@@ -13,6 +13,7 @@ import OperationPayment from "./components/OperationPayment";
 import OperationQuery from "./components/OperationQueries";
 import OperationDeposits from "./components/OperationDeposits";
 import OperationLogin from "./components/OperationLogin";
+import CreateAccount from "./components/CreateAccount";
 
 // state
 
@@ -35,7 +36,7 @@ const App = () => {
       component = <OperationLogin />;
       break;
     case "/menu":
-      component = <Menu dataSet={data} />;
+      component = <Menu dataSet={data["PT"]} />;
       break;
     case "/levantamentos":
       component = <OperationWithdrawl dataSet={data["PT"]["levantamentos"]} />;
@@ -67,6 +68,7 @@ const App = () => {
         <Screenkeys />
         <div className="main-menu">{component}</div>
         <Keyboard />
+        <CreateAccount />
       </div>
     </div>
   );
