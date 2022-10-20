@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //list of possible bank Id numbers in PT.
 import { bankIds } from "../helpers/bank-helper";
 //two pre-made credit cards
@@ -6,7 +6,6 @@ import { CreditCards } from "../helpers/creditCard-helper";
 
 const CardList = (props: any) => {
   const content: any[any] = [];
-
   props.list.forEach((item: any, i: number) => {
     content.push(<li key={i}>{item.cardName}</li>);
   });
@@ -14,17 +13,18 @@ const CardList = (props: any) => {
 };
 
 const CreateAccount = () => {
+  const [creditList, setCreditList] = useState([...CreditCards]);
   class CreditCard {
-    _cardName: string;
-    _cardNumber: string;
-    _cardPin: string;
-    _cardOperations: { deposits: string[]; withdrawls: string[]; transfers: string[]; payments: string[] };
+    cardName: string;
+    cardNumber: string;
+    cardPin: string;
+    cardOperations: { deposits: string[]; withdrawls: string[]; transfers: string[]; payments: string[] };
 
     constructor(name: string, number: string, pin: string) {
-      this._cardName = name;
-      this._cardNumber = number;
-      this._cardPin = pin;
-      this._cardOperations = {
+      this.cardName = name;
+      this.cardNumber = number;
+      this.cardPin = pin;
+      this.cardOperations = {
         deposits: [""],
         withdrawls: [""],
         transfers: [""],
@@ -75,17 +75,26 @@ const CreateAccount = () => {
     if (card.length > 21) {
       card = verifyCardNum();
     } else {
-      const newCard = new CreditCard("Nuno", card, "1234");
-      return newCard;
+      const newCard = new CreditCard("John Q. Public", card, "1234");
+
+      setCreditList((prevState) => {
+        return [...prevState.concat(newCard)];
+      });
     }
   }
+  useEffect(() => {}, [creditList]);
 
   return (
     <>
       <div className="cardList-wrapper">
-        <ul>
-          <CardList list={CreditCards} />
+        <ul className="card-list">
+          <CardList list={creditList} />
         </ul>
+        <div className="createCard-wrapper">
+          <button className="btn btn-success" onClick={createCard} id="createBtn">
+            Click Me
+          </button>
+        </div>
       </div>
     </>
   );

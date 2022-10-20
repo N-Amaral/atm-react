@@ -54,7 +54,7 @@ function setValue(
   }
 }
 
-//checks input and toggles boolean flags responsible for switch from input group to input group
+//checks input and toggles boolean flags responsible for switching from input group to input group
 function checkSubmit(
   endFlag: { current: boolean },
   lowerVal: number[],
@@ -289,4 +289,13 @@ function finalInput(
   console.log(inputVal.current);
 }
 
-export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput };
+//set account number based on preexisting cards
+function setUser(userInfo: { cardNumber: string }, upperVal: { current: number[] }) {
+  const inputs: any[] = Array.from(document.querySelectorAll(".upper-input"));
+  inputs.forEach((input, i) => {
+    input.value = userInfo.cardNumber[i];
+    upperVal.current[i] = parseInt(userInfo.cardNumber[i]);
+  });
+  console.log(upperVal.current);
+}
+export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput, setUser };

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { UpperForm } from "./OperationTransfer";
-import { checkSubmit, setValue, keyboardInput, clearInput, finalInput } from "../scripts/scripts";
+import { checkSubmit, setValue, keyboardInput, clearInput, finalInput, setUser } from "../scripts/scripts";
+import { CreditCards } from "../helpers/creditCard-helper";
 
 const PinForm = () => {
   const content: any[any] = [];
@@ -49,6 +50,16 @@ const OperationLogin = () => {
           keyboardInput(button, endFlag, lowerVal.current, switchFlag, upperVal.current);
           setValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
         }
+      });
+    });
+
+    const creditCardList: NodeListOf<Element> = document.querySelectorAll("li");
+
+    //on clicking preexisting credit cards, sets their account number
+    Array.from(creditCardList).forEach((entry, i) => {
+      entry.addEventListener("click", () => {
+        setUser(CreditCards[i], upperVal);
+        console.log(creditCardList);
       });
     });
   }, []);

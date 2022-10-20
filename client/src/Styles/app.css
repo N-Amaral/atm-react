@@ -46,13 +46,13 @@ html {
   border-radius: 15px;
 }
 
-.App div.cardList-wrapper > ul {
+.App div.cardList-wrapper > ul.card-list {
   display: flex;
   padding: 1rem;
   list-style: none;
 }
 
-.App div.cardList-wrapper > ul > li {
+.App div.cardList-wrapper > ul.card-list > li {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@ html {
   cursor: pointer;
 }
 
-.App div.cardList-wrapper > ul > li:hover {
+.App div.cardList-wrapper > ul.card-list > li:hover {
   background-color: royalblue;
   border: 2px inset black;
 }
