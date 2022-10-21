@@ -13,7 +13,6 @@ import OperationPayment from "./components/OperationPayment";
 import OperationQuery from "./components/OperationQueries";
 import OperationDeposits from "./components/OperationDeposits";
 import OperationLogin from "./components/OperationLogin";
-import CreateAccount from "./components/CreateAccount";
 
 // state
 
@@ -68,7 +67,6 @@ const App = () => {
         <Screenkeys />
         <div className="main-menu">{component}</div>
         <Keyboard />
-        <CreateAccount />
       </div>
     </div>
   );
