@@ -83,8 +83,6 @@ const CreateAccount = () => {
     }
   }
 
-  useEffect(() => {}, [creditList]);
-
   return (
     <>
       <div className="cardList-wrapper">

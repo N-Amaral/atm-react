@@ -36,12 +36,16 @@ const OperationLogin = () => {
     };
   } = useRef({ upperVal: [0], lowerVal: [0] });
 
+  //input values
   const upperVal: { current: number[] } = useRef([]);
   const lowerVal: { current: number[] } = useRef([]);
 
-  let switchFlag: { current: boolean } = useRef(false);
-  let endFlag: { current: boolean } = useRef(false);
+  //input flags
+  const switchFlag: { current: boolean } = useRef(false);
+  const endFlag: { current: boolean } = useRef(false);
 
+  //testing
+  const numberCards: { current: number } = useRef(0);
   class CreditCard {
     cardName: string;
     cardNumber: string;
@@ -142,11 +146,10 @@ const OperationLogin = () => {
   useEffect(() => {
     const creditCardList: NodeListOf<Element> = document.querySelectorAll("li");
     //on clicking preexisting credit cards, sets their account number
-
     creditCardList.forEach((entry, i) => {
-      if (!entry.classList.contains("set")) {
+      if (i >= numberCards.current) {
         entry.addEventListener("click", () => setUser(creditList[i], upperVal));
-        entry.classList.add("set");
+        numberCards.current++;
       }
     });
   }, [creditList]);
