@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput } from "../scripts/scripts";
+import { checkSubmit, setInputValue, keyboardInput, clearInput, cancelInput, finalInput } from "../scripts/inputScripts";
 
 const DepositForm = () => {
   const content: any[any] = [];
@@ -56,7 +56,7 @@ const OperationDeposits = () => {
         if (!endFlag.current) {
           checkSubmit(endFlag, lowerVal.current);
           keyboardInput(button, endFlag, lowerVal.current);
-          setValue(endFlag, lowerVal.current);
+          setInputValue(endFlag, lowerVal.current);
         }
       });
     });

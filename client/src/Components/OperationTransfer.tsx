@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput } from "../scripts/scripts";
+import { checkSubmit, setInputValue, keyboardInput, clearInput, cancelInput, finalInput } from "../scripts/inputScripts";
 
 const UpperForm = () => {
   const content: any[any] = [];
@@ -79,7 +79,7 @@ const OperationTransfer = () => {
         if (!endFlag.current) {
           checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
           keyboardInput(button, endFlag, lowerVal.current, switchFlag, upperVal.current);
-          setValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
+          setInputValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
         }
       });
     });

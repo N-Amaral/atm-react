@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MenuList } from "./Menu";
-import { cancelInput } from "../scripts/scripts";
+import { cancelInput } from "../scripts/inputScripts";
 
 const OperationWithdrawl = (props: { dataSet: { opTitles: string[]; opValues: number[]; opRoutes: string[] } }) => {
   const titleSet: string[] = Object.values(props.dataSet.opTitles);

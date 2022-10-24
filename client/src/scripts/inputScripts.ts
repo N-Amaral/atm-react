@@ -8,7 +8,7 @@ function evalSubmit(val: number[], i: number, input: any) {
 }
 
 //checks input and boolean flags for input group limits
-function setValue(
+function setInputValue(
   endFlag: { current: boolean },
   lowerVal: number[],
   switchFlag1?: { current: boolean },
@@ -289,13 +289,4 @@ function finalInput(
   console.log(inputVal.current);
 }
 
-//set account number based on preexisting cards
-function setUser(userInfo: { cardNumber: string }, upperVal: { current: number[] }) {
-  const inputs: any[] = Array.from(document.querySelectorAll(".upper-input"));
-  inputs.forEach((input, i) => {
-    input.value = userInfo.cardNumber[i];
-    upperVal.current[i] = parseInt(userInfo.cardNumber[i]);
-  });
-  console.log(upperVal.current);
-}
-export { evalSubmit, checkSubmit, setValue, keyboardInput, clearInput, cancelInput, finalInput, setUser };
+export { evalSubmit, checkSubmit, setInputValue, keyboardInput, clearInput, cancelInput, finalInput };

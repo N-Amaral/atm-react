@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { UpperForm } from "./OperationTransfer";
-import { checkSubmit, setValue, keyboardInput, clearInput, finalInput, setUser } from "../scripts/scripts";
+import { setInputValue, keyboardInput, clearInput } from "../scripts/inputScripts";
+import { setUser, checkLoginSubmit, finalLoginSubmit, checkAccount } from "../scripts/loginScripts";
 import { CreditCards } from "../helpers/creditCard-helper";
+import CreateAccountModal from "./CreateAccount";
 
 //list of possible bank Id numbers in PT.
 import { bankIds } from "../helpers/bank-helper";
@@ -44,8 +46,9 @@ const OperationLogin = () => {
   const switchFlag: { current: boolean } = useRef(false);
   const endFlag: { current: boolean } = useRef(false);
 
-  //testing
+  // current solution for lack of a event listener cleanup solution.
   const numberCards: { current: number } = useRef(0);
+
   class CreditCard {
     cardName: string;
     cardNumber: string;
@@ -117,27 +120,27 @@ const OperationLogin = () => {
 
   useEffect(() => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
-    const enterBtn: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
-
+    const sideBtns: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
     // event listener for each onscreen button.
 
     //reset/clear input
-    enterBtn[1].addEventListener("click", () => {
+    sideBtns[1].addEventListener("click", () => {
       clearInput(endFlag, lowerVal, switchFlag, upperVal);
     });
 
     //confirm  final input
-    enterBtn[3].addEventListener("click", () => {
-      finalInput(inputVal, endFlag, lowerVal.current, switchFlag, upperVal.current);
+    sideBtns[3].addEventListener("click", () => {
+      finalLoginSubmit(inputVal, endFlag, lowerVal.current, switchFlag, upperVal.current);
+      checkAccount(inputVal.current);
     });
 
     //submit input
     Array.from(buttons).forEach((button) => {
       button.addEventListener("click", () => {
         if (!endFlag.current) {
-          checkSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
+          checkLoginSubmit(endFlag, lowerVal.current, switchFlag, upperVal.current);
           keyboardInput(button, endFlag, lowerVal.current, switchFlag, upperVal.current);
-          setValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
+          setInputValue(endFlag, lowerVal.current, switchFlag, upperVal.current);
         }
       });
     });
@@ -178,11 +181,15 @@ const OperationLogin = () => {
           <CardList list={creditList} />
         </ul>
         <div className="createCard-wrapper">
-          <button className="btn btn-success" onClick={createCard} id="createBtn">
+          {/* <button className="btn btn-success" onClick={createCard} id="createBtn">
             Click Me
+          </button> */}
+          <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAccModal">
+            Create Card
           </button>
         </div>
       </div>
+      <CreateAccountModal />
     </>
   );
 };
