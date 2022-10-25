@@ -1,13 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { UpperForm } from "./OperationTransfer";
 import { setInputValue, keyboardInput, clearInput } from "../scripts/inputScripts";
-import { setUser, checkLoginSubmit, finalLoginSubmit, checkAccount } from "../scripts/loginScripts";
+import { setUser, checkLoginSubmit, finalLoginSubmit, checkAccount, verifyCardNum } from "../scripts/loginScripts";
 import { CreditCards } from "../helpers/creditCard-helper";
 import CreateAccountModal from "./CreateAccount";
 
-//list of possible bank Id numbers in PT.
-import { bankIds } from "../helpers/bank-helper";
-
+//lists existing Credit Cards
 const CardList = (props: any) => {
   const content: any[any] = [];
   props.list.forEach((item: any, i: number) => {
@@ -16,6 +14,7 @@ const CardList = (props: any) => {
   return content;
 };
 
+//custom form for pin
 const PinForm = () => {
   const content: any[any] = [];
   for (let i: number = 0; i < 4; i++) {
@@ -46,9 +45,10 @@ const OperationLogin = () => {
   const switchFlag: { current: boolean } = useRef(false);
   const endFlag: { current: boolean } = useRef(false);
 
-  // current solution for lack of a event listener cleanup solution.
+  // current solution for lack of an event listener cleanup.
   const numberCards: { current: number } = useRef(0);
 
+  //Credit Card def
   class CreditCard {
     cardName: string;
     cardNumber: string;
@@ -67,42 +67,6 @@ const OperationLogin = () => {
       };
     }
   }
-  //creates a base card number
-  function makeCardNum() {
-    //randomized number to be used alongside bankNum
-    const ind: number = Math.floor(Math.random() * 23);
-    const bankNum: string[] = bankIds.bankNum;
-    //takes randomized index for one of the bank Id numbers and add 0000 in place of a branch number
-    let tempNum: string = bankNum[ind] + "0000";
-    let restNum: string = "";
-
-    //fills up rest of the number sequence with randomized numbers.
-    while (restNum.length !== 13) {
-      restNum += Math.floor(Math.random() * 10).toString();
-    }
-    return parseInt((tempNum += restNum));
-  }
-
-  //validates card number
-  function verifyCardNum() {
-    let tempCardNum: number = makeCardNum();
-    let fCardNum: string = "";
-    while (tempCardNum % 97 !== 1) {
-      tempCardNum = makeCardNum();
-    }
-
-    //in case the number is valid checks length due to the fact that some bank ids start with 00 and get deleted during conversion
-    if (tempCardNum.toString().length === 21) {
-      fCardNum = tempCardNum.toString();
-    }
-    if (tempCardNum.toString().length <= 19) {
-      fCardNum = "00" + tempCardNum.toString();
-    } else {
-      fCardNum = "0" + tempCardNum.toString();
-    }
-    return fCardNum;
-  }
-
   //starts card creating and validation.
   function createCard() {
     let card = verifyCardNum();
@@ -118,6 +82,7 @@ const OperationLogin = () => {
     }
   }
 
+  //this useEffect handles the input events
   useEffect(() => {
     const buttons: NodeListOf<Element> = document.querySelectorAll(".keypad-btn");
     const sideBtns: NodeListOf<Element> = document.querySelectorAll(".sidepad-btn");
@@ -146,6 +111,7 @@ const OperationLogin = () => {
     });
   }, []);
 
+  //this UseEffect hanldes credit card Creation plus changes to the creditList
   useEffect(() => {
     const creditCardList: NodeListOf<Element> = document.querySelectorAll("li");
     //on clicking preexisting credit cards, sets their account number
@@ -181,9 +147,6 @@ const OperationLogin = () => {
           <CardList list={creditList} />
         </ul>
         <div className="createCard-wrapper">
-          {/* <button className="btn btn-success" onClick={createCard} id="createBtn">
-            Click Me
-          </button> */}
           <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAccModal">
             Create Card
           </button>

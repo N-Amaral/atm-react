@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const CreateAccountForm = () => {
   return (
-    <form>
+    <form className="needs-validation" id="accForm" method="GET" action="" noValidate>
       <div className="mb-3">
         <label htmlFor="accountFormName" className="form-label">
           Account Name
         </label>
-        <input type={"text"} className={"form-control"} id={"accountName"}></input>
+        <input type={"text"} className={"form-control"} id={"accountName"} required></input>
+        <div className="valid-feedback">Valid Name</div>
+        <div className="invalid-feedback">Invalid Name</div>
       </div>
       <div className="mb-3">
         <label htmlFor="accountFormPin" className="form-label">
           Account Pin
         </label>
-        <input type={"tel"} className={"form-control"} id={"accountPin"}></input>
+        <input type={"tel"} className={"form-control"} id={"accountPin"} required></input>
+        <div className="valid-feedback">Valid PIN</div>
+        <div className="invalid-feedback">Invalid PIN</div>
       </div>
     </form>
   );
 };
 
 const CreateAccountModal = () => {
+  useEffect(() => {
+    const forms = document.querySelectorAll(".needs-validation");
+    Array.from(forms).forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        form.classList.add("was-validated");
+      });
+    });
+  });
+
   return (
     <div className="modal fade" tabIndex={-1} id="createAccModal">
       <div className="modal-dialog">
@@ -35,7 +50,7 @@ const CreateAccountModal = () => {
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>
-            <button type="button" className="btn btn-primary">
+            <button type="submit" form="accForm" className="btn btn-primary">
               Create Acount
             </button>
           </div>
