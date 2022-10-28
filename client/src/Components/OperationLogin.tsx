@@ -111,7 +111,7 @@ const OperationLogin = () => {
     });
   }, []);
 
-  //this UseEffect hanldes credit card Creation plus changes to the creditList
+  //this UseEffect handles credit card Creation plus changes to the creditList
   useEffect(() => {
     const creditCardList: NodeListOf<Element> = document.querySelectorAll("li");
     //on clicking preexisting credit cards, sets their account number

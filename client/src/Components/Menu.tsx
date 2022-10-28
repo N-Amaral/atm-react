@@ -19,15 +19,38 @@ const MenuList = (props: { list: string[]; values: number[] | undefined; routes:
   return (
     <ul className="operations-list">
       {props.list.map((operation, i) => {
-        return (
-          <Operation
-            name={operation}
-            key={i}
-            elementId={i}
-            value={props.values !== undefined ? props.values[i] : undefined}
-            route={props.routes !== undefined ? props.routes[0] : undefined}
-          />
-        );
+        console.log(i, operation);
+        if (i === 5) {
+          return (
+            <Operation
+              name={operation}
+              key={i}
+              elementId={i}
+              value={props.values !== undefined ? props.values[i] : undefined}
+              route={props.routes !== undefined ? props.routes[1] : undefined}
+            />
+          );
+        } else if (i === 6) {
+          return (
+            <Operation
+              name={operation}
+              key={i}
+              elementId={i}
+              value={props.values !== undefined ? props.values[i] : undefined}
+              route={props.routes !== undefined ? props.routes[2] : undefined}
+            />
+          );
+        } else {
+          return (
+            <Operation
+              name={operation}
+              key={i}
+              elementId={i}
+              value={props.values !== undefined ? props.values[i] : undefined}
+              route={props.routes !== undefined ? props.routes[0] : undefined}
+            />
+          );
+        }
       })}
     </ul>
   );

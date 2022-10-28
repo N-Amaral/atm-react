@@ -7,7 +7,7 @@ const CreateAccountForm = () => {
         <label htmlFor="accountFormName" className="form-label">
           Account Name
         </label>
-        <input type={"text"} className={"form-control"} id={"accountName"} required></input>
+        <input type={"text"} className={"form-control"} id={"accountName"} maxLength={20} pattern={"[A-zA-z]+"} required></input>
         <div className="valid-feedback">Valid Name</div>
         <div className="invalid-feedback">Invalid Name</div>
       </div>
@@ -15,7 +15,7 @@ const CreateAccountForm = () => {
         <label htmlFor="accountFormPin" className="form-label">
           Account Pin
         </label>
-        <input type={"tel"} className={"form-control"} id={"accountPin"} required></input>
+        <input type={"tel"} className={"form-control"} id={"accountPin"} maxLength={4} pattern={"[0-9]+"} required></input>
         <div className="valid-feedback">Valid PIN</div>
         <div className="invalid-feedback">Invalid PIN</div>
       </div>
